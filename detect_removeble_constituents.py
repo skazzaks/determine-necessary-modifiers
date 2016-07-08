@@ -12,15 +12,20 @@ EXCLUDED_POS = ['NNP', 'NN', 'VBP', 'VBD', '.', 'CC', 'DT', 'NNS', 'IN', 'PRP',
 WORDS = ['not', '\'nt']
 REMOVABLE_TYPES = ['advmod', # includes quantmod
                    'amod',
-                   'appos',
+                   # 'appos', too few
                    'compound',
-                   'nmod:npmod',
-                   'nummod', # Same ate [3] sheep [number and num
+                   # 'nmod:npmod', too few
+                   # 'nummod', # Same ate [3] sheep [number and num
+                   # usually needed
                    #'quantmod', # included in 'advmod'
                    'nmod:poss', # Bill's clothes ['poss']
-                   'det:predet', # All the boys are here ['predet']
-                   'case', # prepositions
-                   'nmod:tmod',
+                   # 'det:predet', # All the boys are here ['predet'] too few
+                   # 'case', # prepositions - too many and most were needed
+                   # TODO DSF - mark the whole prepositional phrase maybe?
+                   # but lots of mistakes
+                   'nmod:tmod', # aren't too many, but interesting, also aren't
+                   # many types (lots of 'one day') - i think we could learn
+                   # here
                    #'vmod' #     didn't exist, under xcomp, but too general
                    ]
 DELIMITER = '|'
@@ -32,39 +37,127 @@ def get_statistics_for_sentence(prev_stats, interesting_records):
     prev_stats['sentences'] += 1
 
     for r in interesting_records:
+        # stanford type
         r_t = r[1]
         r_pos = r[2][1]
 
         ts = prev_stats['types']
 
         if r_t not in ts:
-            ts[r_t] = 0
+            ts[r_t] = {}
+            ts[r_t]['count'] = 0
+            ts[r_t]['pos'] = {}
 
-        ts[r_t] += 1
+        ts[r_t]['count'] += 1
 
-        tpos = prev_stats['pos']
+        if r_pos not in ts[r_t]['pos']:
+            ts[r_t]['pos'][r_pos] = 0
 
-        if r_pos not in tpos:
-            tpos[r_pos] = 0
+        ts[r_t]['pos'][r_pos] += 1
 
-        tpos[r_pos] += 1
+        # add the head, modifier, and modifier-head counts
+        head = r[0][0].lower()
+        mod = r[2][0].lower()
+
+        m = prev_stats['modifiers']
+        if mod not in m:
+            m[mod] = {}
+
+        if head not in m[mod]:
+            m[mod][head] = 0
+
+        m[mod][head] += 1
+
+        h = prev_stats['heads']
+
+        if head not in h:
+            h[head] = 0
+
+        h[head] += 1
+
+
+def remove_dependent_nodes(nodes, i, remove_list):
+    for j, n in nodes.items():
+        if j == 0:
+            continue
+        if int(n['head']) == i:
+            remove_list.append(j)
+            remove_dependent_nodes(nodes, j, remove_list)
+
+
+def write_line(story, nodes, trigger_node, words_to_remove, output_file,
+               story_filename, sentence_num):
+    words_to_remove = sorted(set(words_to_remove))
+
+    output_file.write(story.source + DELIMITER +
+                            story.storyid + DELIMITER +
+                            story_filename + DELIMITER + story.full_story +
+                            DELIMITER + story.original_title +
+                            DELIMITER + str(sentence_num))
+
+    # Go though each word of the sentence and see if it should be
+    # removed.
+    compiled_sentence = ''
+    for i, n in nodes.items():
+        if i == 0:
+            continue
+
+        if i != 1 and n['word'] not in TOKENS_WITHOUT_SPACE:
+            compiled_sentence += ' '
+
+        # The word should be removed
+        if i in words_to_remove:
+            if (i - 1) not in words_to_remove:
+                compiled_sentence += '['
+
+        compiled_sentence += n['word']
+
+        # Do we need to close the parenth?
+        if i in words_to_remove:
+            if i + 1 not in words_to_remove:
+                compiled_sentence += ']'
+
+    output_file.write(DELIMITER + compiled_sentence)
+
+    # Output the interesting words
+    output_file.write(DELIMITER + trigger_node['rel'])
+
+    output_file.write(DELIMITER + trigger_node['word'] + DELIMITER +
+                        nodes[int(trigger_node['head'])]['word'])
+
+    # words to remove
+    output_file.write(DELIMITER + str(words_to_remove[0]))
+    output_file.write(DELIMITER + str(words_to_remove[-1]))
+
+    # head word index
+    output_file.write(DELIMITER + str(trigger_node['head']))
+    # Output the full sentence
+    output_file.write(DELIMITER +
+                      story.original_sentences[sentence_num] \
+                      .replace('\r','').replace('\n', ''))
+
+    output_file.write('\r\n')
 
 
 def handle_sentence(story, story_filename, sentence_num, output_file, stats):
     """Handle the given sentence and output the results to output_file."""
     # parse the sentence
-    # p = [list(parse.triples()) for parse in parser.raw_parse(sent)]
     # now it is just a matter of iterating over our items and removing them
     # one by one
     # first, get just the set we care about
     count = 0
 
     # get the first dependency tree
-    dsent = story.dparsed_sentences[sentence_num - 1]
-    sent = story.original_sentences[sentence_num - 1]
+    dsent = story.dparsed_sentences[sentence_num]
+    sent = story.original_sentences[sentence_num]
 
     # get the triples of the dep graph
     p = [list(parse.triples()) for parse in dsent]
+
+    # Triple format
+    # [(head, POS), dep-type, (mod, POS)]
+    # this is always a list, but we always just want the first element
+    dsent = dsent[0]
 
     interesting_records = list(x for x in p[0] if x[1] in REMOVABLE_TYPES)
     count = len(interesting_records)
@@ -77,62 +170,30 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats):
         return results
 
     t_sent = word_tokenize(sent)
+
     # INTERESTING SENTENCE FOUND - let's write it out to the file
+    for i, n in dsent.nodes.items():
+        if i == 0:
+            continue
 
-    # Remove the words full mesh - first 1, then 2, ...X
-    for x in range(0, count):
-        words_to_remove = x + 1
+        words_to_remove = []
+        # check to see if the node has any of the phenomena we care about
+        if n['rel'] in REMOVABLE_TYPES:
+            # This is the occurrence we should consider,
+            # so do the work
+            words_to_remove.append(i)
 
-        for y in range(0, count - x):
-            words_removed = 0
-            output_file.write(story.source + DELIMITER +
-                              story.storyid + DELIMITER +
-                              story_filename + DELIMITER + story.full_story +
-                              DELIMITER + story.original_title +
-                              DELIMITER + str(sentence_num) + DELIMITER)
+            # also remove any dependent nodes
+            remove_dependent_nodes(dsent.nodes, i, words_to_remove)
 
-            # Go though each word of the sentence and see if it should be
-            # removed.
-            full_sentence_with_words_to_remove = ''
-            for ind, w in enumerate(t_sent):
-                match_found = False
-                for r in interesting_records[y: y + words_to_remove]:
-                # r is like [(('overweight', 'VBN'), 'advmod', ('as', 'RB'))]
-                    r_w = r[2][0]
-                    if r_w.upper() == w.upper():
-                        words_removed += 1
-                        match_found = True
-                        break
-                if match_found:
-                    full_sentence_with_words_to_remove += ' [' + w + ']'
-                    continue
-                else:
-                    if ind == 0 or w in TOKENS_WITHOUT_SPACE:
-                        output_file.write(w)
-                        full_sentence_with_words_to_remove += w
-                    else:
-                        output_file.write(" " + w)
-                        full_sentence_with_words_to_remove += ' ' + w
+            write_line(story, dsent.nodes, n, words_to_remove, output_file,
+                       story_filename, sentence_num)
 
+def output_stats(output_path, stats):
+    if not os.path.isdir(output_path):
+        os.makedirs(output_path)
 
-            output_file.write(DELIMITER + full_sentence_with_words_to_remove)
-            # Output the interesting words
-            output_file.write(DELIMITER +
-                              str([r[2][0] for r in
-                               interesting_records[y:y+words_to_remove]]))
-
-            output_file.write(DELIMITER +
-                              str(interesting_records[y:y+words_to_remove]))
-
-            # Output the full sentence
-            output_file.write(DELIMITER + sent.replace('\r','').replace('\n', ''))
-            if words_removed > count:
-                output_file.write(DELIMITER + "Too many words removed!")
-
-            output_file.write('\r\n')
-
-def output_stats(output_file, stats):
-    with open(output_file, 'w') as f:
+    with open(output_path + 'general', 'w') as f:
         f.write('Phenomena per sentence: ' +
                 str(stats['count'] / stats['sentences']) + '\r\n')
 
@@ -143,30 +204,81 @@ def output_stats(output_file, stats):
         f.write('Dependency Types:\r\n')
 
         for k,v in stats['types'].items():
-            f.write('\t'  + k + ": " + str(v) + '\r\n')
-
+            f.write('\t'  + str(k) + ": " + str(v['count']) + '\r\n')
 
         f.write('POS:\r\n')
 
-        for k,v in stats['pos'].items():
-            f.write('\t' + k + ': ' + str(v) + '\r\n')
+        for k,v in stats['types'].items():
+            f.write('\t' + k + ':\r\n')
+
+            for k,v in v['pos'].items():
+                f.write('\t\t' + k + ': ' + str(v) + '\r\n')
+
+    with open(output_path + 'heads_and_modifiers.csv', 'w') as f:
+        # try to bring everything together and sort it
+
+        # header
+        f.write('modifier' + DELIMITER + 'head' + DELIMITER + 'count' +
+                DELIMITER + 'total mod count' + DELIMITER +
+                'perc with this head\r\n')
+        all_items = []
+
+        for k,v in stats['modifiers'].items():
+            total = sum(v.values())
+            for k2, v2 in v.items():
+                # figure out the total for this modifier and the perc
+                f.write(k + DELIMITER + k2 + DELIMITER +
+                        str(v2) + DELIMITER + str(total) +
+                        DELIMITER + str(v2/total)+'\r\n')
+
+    with open(output_path + 'heads.csv', 'w') as f:
+        # header
+        f.write('head' + DELIMITER + 'count\r\n')
+
+        for k,v in stats['heads'].items():
+            f.write(k + DELIMITER + str(v) + '\r\n')
+
+    with open(output_path + 'modifiers.csv', 'w') as f:
+        # header
+        f.write('modifier' + DELIMITER + 'count\r\n')
+
+        for k,v in stats['modifiers'].items():
+            f.write(k + DELIMITER + str(sum(v.values())) + '\r\n')
 
 def finish_up(stats):
-    output_stats('./stats', stats)
+    output_stats('../stats/', stats)
 
 
 def do_loop(file_list, process_num, output_file):
     prev_stats = {}
-    prev_stats['count'] = 0
-    prev_stats['types'] = {}
-    prev_stats['pos'] = {}
-    prev_stats['sentences'] = 0
-    prev_stats['stories'] = 0
-
+    prev_stats['count'] = 0 # total number of phenomena
+    prev_stats['types'] = {} # types of phenomena
+    prev_stats['sentences'] = 0 # sentence count
+    prev_stats['stories'] = 0 # story count
+    prev_stats['modifiers'] = {} # modifiers, their count, and their heads
+                                 # {'modifier': {'head': count}}
+    prev_stats['heads'] = {} # {'head': count}
     stories_processed = 0
 
 
     with(open(output_file, 'w')) as o:
+        # Write a header
+        o.write('Source' + DELIMITER +
+                          'StoryID' + DELIMITER +
+                          'File' + DELIMITER +
+                          'Full Story' + DELIMITER +
+                          'Title' + DELIMITER +
+                          'Sentence Number' + DELIMITER +
+                          'Marked Sentence' + DELIMITER +
+                          'Modifier Type' + DELIMITER +
+                          'Modifier' + DELIMITER +
+                          'Head' + DELIMITER +
+                          'Removed Words Start Index' + DELIMITER +
+                          'Removed Words End Index' + DELIMITER +
+                          'Head Word Index' + DELIMITER +
+                          'Original Sentence'+
+                          '\r\n')
+
         # go through each file and process the information we care about
         # including which words could be removed
         start_time = time.time()
@@ -214,7 +326,7 @@ if __name__ == '__main__':
 
     interval = int(int(total) / int(proc_count))
     print(str(proc_count) + " processes, each processing " + str(interval) +
-          'records')
+          ' records')
 
     if not os.path.isdir(args.output_directory):
         os.makedirs(args.output_directory)
