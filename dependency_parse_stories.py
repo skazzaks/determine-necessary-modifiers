@@ -1,3 +1,4 @@
+import glob
 import nltk
 from nltk.parse.stanford import StanfordDependencyParser
 import sys
@@ -21,6 +22,16 @@ TOKENS_WITHOUT_SPACE = ["'", ".", "!", ":", ",", "n't"]
 class ROC_Stories_Reader():
     def __init__(self, filename):
         self.f = open(filename, 'r')
+        self.filename = filename
+    def get_total_count(self):
+        total = 0
+
+        # Get the number of lines in a file
+        with open(self.filename) as f:
+            for i, l in enumerate(f):
+                pass
+        total = i + 1
+        return total
 
     # gets the next line of the data record in the format
     # [storyid, title, 1, 2, 3, 4, 5]
@@ -33,7 +44,28 @@ class ROC_Stories_Reader():
             return False
 
         final = l.split('/')
-        return "ROC", final
+        return "ROC", final[0], final[1], final[2:]
+
+
+class microtext_Reader():
+    def __init__(self, path_to_files):
+        self.filelist = list(glob.glob(path_to_files + "/*.txt"))
+        self.current_index = -1
+
+    def get_total_count(self):
+        return len(self.filelist)
+
+    def get_next_record(self):
+        self.current_index += 1
+
+        if self.current_index >= len(self.filelist):
+            return False
+
+        thefile = self.filelist[self.current_index]
+        with open(thefile, 'r') as f:
+            sentences = nltk.sent_tokenize(f.read())
+
+        return "MICRO", thefile, "[no title]", sentences
 
 
 def parse_sentence(parser, sent):
@@ -45,25 +77,24 @@ def parse_sentence(parser, sent):
 def do_loop(proc, parser, start_line, num_to_proc, output_dir, process_num):
 
     for i in range(start_line - 1):
-        record_type, l = proc.get_next_record()
+        proc.get_next_record()
 
     i = start_line
     processed_count = 0
     start_time = time.time()
     while True:
-        record_type, l = proc.get_next_record()
+        record_type, id, title, sentences  = proc.get_next_record()
         end_time = time.time()
         full_time = end_time - start_time
         print("Story: " + str(i) + '[' + str(processed_count + 1) +
               '|'+ str(num_to_proc) + "] Time: "
                             + str(datetime.timedelta(seconds=full_time)))
 
-        if l:
+        if sentences:
             original_sentences = []
             dparsed_sentences = []
-            original_title = l[1]
             story_text = ''
-            for line_num, sent in enumerate(l[2:]):
+            for line_num, sent in enumerate(sentences):
                 if line_num is not 0:
                     story_text += ' '
 
@@ -71,14 +102,14 @@ def do_loop(proc, parser, start_line, num_to_proc, output_dir, process_num):
                 story_text += sent
 
             story_text = story_text.replace('\n', '').replace('\r', '')
-            dparsed_title = parse_sentence(parser, l[1])
+            dparsed_title = parse_sentence(parser, title)
 
-            for line_num, sent in enumerate(l[2:]):
+            for line_num, sent in enumerate(sentences):
                 p = parse_sentence(parser, sent)
                 dparsed_sentences.append(p)
 
-            story = Story(l[0], story_text, 'ROC', original_sentences,
-                          original_title, dparsed_sentences, dparsed_title)
+            story = Story(id, story_text, record_type, original_sentences,
+                          title, dparsed_sentences, dparsed_title)
             # dump the record out to the file system
             dill.dump(story, open(output_dir +
                                   '/story_' + str(i) + '.dat', 'wb'))
@@ -94,31 +125,31 @@ def do_loop(proc, parser, start_line, num_to_proc, output_dir, process_num):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Serialize stories to file')
-    input_file = sys.argv[1]
-    start_record = sys.argv[2]
-    number_of_records = sys.argv[3]
-    output_directory = sys.argv[4]
+    parser.add_argument('input_file', help='The input file or directory, ' +
+                        'depending on the file type.')
+    parser.add_argument('output_directory', help='The directory for the output')
+    parser.add_argument('file_type', help='ROC or MICRO')
+    args = parser.parse_args()
 
-    # Get the number of lines in a file
-    with open(input_file) as f:
-        for i, l in enumerate(f):
-            pass
-    total = i + 1
+    proc = None
+    if args.file_type == 'ROC':
+        proc = ROC_Stories_Reader(args.input_file)
+    else:
+        proc = microtext_Reader(args.input_file)
 
-    if not os.path.isdir(output_directory):
-        os.makedirs(output_directory)
+    if not os.path.isdir(args.output_directory):
+        os.makedirs(args.output_directory)
     start_line = 0
 
     # get a ref to the Stanford DepParser
     parser = StanfordDependencyParser(
         model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
 
-    proc = ROC_Stories_Reader(input_file)
 
     p = Process(target=do_loop,
-                args=(proc, parser, int(start_record),
-                        int(number_of_records),
-                        output_directory, i))
+                args=(proc, parser, 1,
+                        proc.get_total_count(),
+                        args.output_directory, 1))
     p.start()
 
 
