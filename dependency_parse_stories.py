@@ -107,6 +107,8 @@ def do_loop(proc, parser, start_line, num_to_proc, output_dir, process_num):
             for line_num, sent in enumerate(sentences):
                 p = parse_sentence(parser, sent)
                 dparsed_sentences.append(p)
+                print(line_num)
+                print(sentences)
 
             story = Story(id, story_text, record_type, original_sentences,
                           title, dparsed_sentences, dparsed_title)
