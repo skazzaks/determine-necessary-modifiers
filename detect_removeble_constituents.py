@@ -327,11 +327,11 @@ def output_stats(output_path, stats):
     plt.savefig(output_path + '/freq_dist.png')
 
 
-def finish_up(stats):
-    output_stats('../stats/', stats)
+def finish_up(output_dir, stats):
+    output_stats(output_dir + '/stats/', stats)
 
 
-def do_loop(file_list, process_num, output_file):
+def do_loop(file_list, process_num, output_dir):
     prev_stats = {}
     prev_stats['count'] = 0 # total number of phenomena
     prev_stats['types'] = {} # types of phenomena
@@ -342,7 +342,7 @@ def do_loop(file_list, process_num, output_file):
     prev_stats['heads'] = {} # {'head': count}
     stories_processed = 0
 
-
+    output_file = output_dir + '/sentences_' + str(i) + '.csv'
     with(open(output_file, 'w')) as o:
         # Write a header
         o.write('Source' + DELIMITER +
@@ -380,7 +380,7 @@ def do_loop(file_list, process_num, output_file):
                     + str(datetime.timedelta(seconds=full_time)))
 
 
-        finish_up(prev_stats)
+        finish_up(output_dir, prev_stats)
 
 
 if __name__ == '__main__':
@@ -424,6 +424,5 @@ if __name__ == '__main__':
         # make a process for each grouping
         p = Process(target=do_loop,
                     args=(file_list[range_start:range_end], i,
-                          args.output_directory + '/sentences_'+
-                          str(i) + '.csv'))
+                          args.output_directory))
         p.start()
