@@ -66,7 +66,7 @@ def plot_frequencies(data, ax, legend_label):
 
     # tuples (pair,count)
     x = [t[0] for t in data]
-    y = [t[1]  for t in data]
+    y = [t[1] for t in data]
 
     x_pos = np.arange(len(x))
 
@@ -121,11 +121,20 @@ def get_statistics_for_sentence(prev_stats, interesting_records):
 
 
 def remove_dependent_nodes(nodes, i, remove_list):
+    last_node_ind = -1
+    total_skipped = 0
+
     for j, n in nodes.items():
+        next_index = j - last_node_ind
+
+        if next_index is not 1:
+            total_skipped += (next_index - 1)
+        last_node_ind = j
+
         if j == 0:
             continue
         if int(n['head']) == i:
-            remove_list.append(j)
+            remove_list.append(j - total_skipped)
             remove_dependent_nodes(nodes, j, remove_list)
 
 
@@ -165,17 +174,22 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
 
     output_file.write(DELIMITER + compiled_sentence)
     '''
-    # Output the full sentence
-    output_file.write(DELIMITER +
-                      story.original_sentences[sentence_num] \
-                      .replace('\r','').replace('\n', ''))
+    # Output the full sentencei
+    full_sentence = story.original_sentences[sentence_num] \
+                      .replace('\r','').replace('\n', '')
+    output_file.write(DELIMITER + full_sentence)
 
 
     # Output the interesting words
     output_file.write(DELIMITER + trigger_node['rel'])
+    s = ''
 
-    output_file.write(DELIMITER + trigger_node['word'] + DELIMITER +
-                        nodes[int(trigger_node['head'])]['word'])
+    for i in full_sentence.split()\
+                        [words_to_remove[0] - 1: words_to_remove[-1]]:
+        s += i + ' '
+
+    output_file.write(DELIMITER + s)
+    output_file.write(DELIMITER + nodes[int(trigger_node['head'])]['word'])
 
     # words to remove
     output_file.write(DELIMITER + str(words_to_remove[0]))
@@ -184,7 +198,6 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
     # head word index
     output_file.write(DELIMITER + str(trigger_node['head']))
     output_file.write('\r\n')
-
 
 def handle_sentence(story, story_filename, sentence_num, output_file, stats):
     """Handle the given sentence and output the results to output_file."""
@@ -222,6 +235,7 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats):
     # INTERESTING SENTENCE FOUND - let's write it out to the file
     words_with_apos = 0
     words_seen = -1
+
     for i, n in dsent.nodes.items():
         words_seen += 1
         if i == 0:
@@ -240,6 +254,10 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats):
             # also remove any dependent nodes
             remove_dependent_nodes(dsent.nodes, i, words_to_remove)
 
+            # if n['word'] == 'hair':
+            #     print(sent)
+            #     print(words_to_remove)
+            #
             write_line(story, dsent.nodes, n, words_to_remove, output_file,
                        story_filename, sentence_num)
 

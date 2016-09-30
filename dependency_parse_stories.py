@@ -153,5 +153,3 @@ if __name__ == '__main__':
                         proc.get_total_count(),
                         args.output_directory, 1))
     p.start()
-
-
