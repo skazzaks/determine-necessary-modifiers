@@ -1,4 +1,4 @@
-from nltk import word_tokenize
+import string
 import os.path
 import os
 import time
@@ -142,7 +142,7 @@ def remove_dependent_nodes(nodes, i, remove_list):
 
 
 def write_line(story, nodes, trigger_node, words_to_remove, output_file,
-               story_filename, sentence_num):
+               story_filename, sentence_num, preremove, to_delete, postremove):
     words_to_remove = sorted(set(words_to_remove))
 
     output_file.write(story.source + DELIMITER +
@@ -156,18 +156,15 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
                     '\r', '').replace('\n', '')
     output_file.write(DELIMITER + full_sentence)
 
-    # Output the interesting words
     output_file.write(DELIMITER + trigger_node['rel'])
-    s = ''
 
-    for i in full_sentence.split()[
-                words_to_remove[0] - 1: words_to_remove[-1]
-                ]:
-        s += i + ' '
-
-    output_file.write(DELIMITER + s)
+    # Output the interesting words
+    output_file.write(DELIMITER + trigger_node['word'])
     output_file.write(DELIMITER + nodes[int(trigger_node['head'])]['word'])
 
+    output_file.write(DELIMITER + preremove)
+    output_file.write(DELIMITER + to_delete)
+    output_file.write(DELIMITER + postremove)
     # words to remove
     output_file.write(DELIMITER + str(words_to_remove[0]))
     output_file.write(DELIMITER + str(words_to_remove[-1]))
@@ -201,6 +198,7 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats,
                                 filter_func(sent, dsent, k, v)}
 
     count = len(interesting_records)
+
     # Get statistics based on the sentence
     results = get_statistics_for_sentence(stats, dsent.nodes,
                                           interesting_records)
@@ -228,12 +226,87 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats,
             # This is the occurrence we should consider,
             # so do the work
             words_to_remove.append(words_seen - words_with_apos)
+
             # also remove any dependent nodes
             remove_dependent_nodes(dsent.nodes, i, words_to_remove)
+            words_to_remove.sort()
+            # Now, let's build up the sentence into parts:
+            # 1) Before the words to be removed
+            # 2) the words to be removed
+            # 3) the words after the words to be removed        .
+            to_delete = ''
+            split_sent = sent.split()
+            last_ind_pre_remove = words_to_remove[0] - 1
+            if last_ind_pre_remove < 0:
+                last_ind_pre_remove = 0
+
+            first_ind_post_remove = words_to_remove[-1]
+            if first_ind_post_remove > len(split_sent):
+                first_ind_post_remove = len(split_sent) - 1
+
+            preremove = " ".join(split_sent[0: last_ind_pre_remove]).strip()
+            postremove = " ".join(split_sent[first_ind_post_remove:]).strip()
+            for i in split_sent[
+                        words_to_remove[0] - 1: words_to_remove[-1]
+                        ]:
+                to_delete += i + ' '
+            to_delete = to_delete[:-1].strip()
+
+            # print(split_sent)
+            # print("Start: " + str(words_to_remove[0]) + "End: " +
+            #        str(words_to_remove[-1]))
+            # print(preremove + ' [' + to_delete + '] ' + postremove)
+
+            # Fix up our punctuation a bit
+            preremove, to_delete, postremove = clean_sentence(preremove,
+                                                              to_delete,
+                                                              postremove)
+
             # Finally, write out the line to the fs
             write_line(story, dsent.nodes, n, words_to_remove, output_file,
-                       story_filename, sentence_num)
+                       story_filename, sentence_num, preremove, to_delete,
+                       postremove)
 
+def clean_sentence(preremove, to_delete, postremove):
+    """Takes in parts of the sentence and cleans them up for output.
+    This includes making a->an, making first words capitalized, and outputting
+    periods where they belong.
+    """
+
+    # Capitalize the first letter of the sentence
+    # This can only happen if the deleted section contains the first word
+    # of the sentence
+    if len(preremove) == 0:
+        postremove = postremove.capitalize()[0] + postremove[1:]
+
+    # Remove punctuation that is at the end of the middle section and move
+    # it to the outside
+    # e.g. [He was feeling] [well.] [] -> [He was feeling] [well] [.]
+    if len(postremove) == 0 and to_delete[-1] in string.punctuation:
+        postremove = str(to_delete[-1])
+        to_delete = to_delete[:-1]
+
+    # make 'a' -> 'an' if appropriate
+    # We only need compare the last word of the beginning with the first
+    # of the end
+    if len(preremove) != 0 and len(postremove) != 0:
+        end = preremove.split()[-1].lower()
+        first = postremove[0].lower().strip()
+
+        if end == 'a' and first in ('a', 'e', 'i', 'o', 'u'):
+            preremove = preremove + 'n'
+        elif end == 'an' and first not in ('a', 'e', 'i', 'o', 'u'):
+            preremove = preremove[:-1]
+
+    # Make sure we have a period at the end
+    if len(postremove) != 0:
+        if postremove[-1:] not in string.punctuation:
+            postremove = postremove + '.'
+    else:
+        if to_delete[-1:] not in string.punctuation:
+            to_delete = to_delete + '.'
+
+    return preremove, to_delete, postremove
 
 def output_stats(output_path, stats):
     if not os.path.isdir(output_path):
@@ -346,6 +419,9 @@ def do_loop(file_list, process_num, output_dir, filter_list):
                           'Modifier Type' + DELIMITER +
                           'Modifier' + DELIMITER +
                           'Head' + DELIMITER +
+                          'Preremove Sentence Part' + DELIMITER +
+                          'To Remove Part' + DELIMITER +
+                          'Postremove Sentence Part' + DELIMITER +
                           'Removed Words Start Index' + DELIMITER +
                           'Removed Words End Index' + DELIMITER +
                           'Head Word Index'+
