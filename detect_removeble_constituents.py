@@ -28,37 +28,40 @@ REMOVABLE_TYPES = ['advmod', # includes quantmod
                    # 'case', # prepositions - too many and most were needed
                    # TODO DSF - mark the whole prepositional phrase maybe?
                    # but lots of mistakes
-                   'nmod:tmod', # aren't too many, but interesting, also aren't
+                   'nmod:tmod',  # aren't too many, but interesting, also aren't
                    # many types (lots of 'one day') - i think we could learn
                    # here
                    #'vmod' #     didn't exist, under xcomp, but too general
                    ]
 DELIMITER = '|'
 TOKENS_WITHOUT_SPACE = ["'", ".", "!", ":", ",", "n't"]
+WORDS_TO_FILTER_OUT = ['when',
+                       'so',
+                       'just',
+                       'hardly',
+                       'how',
+                       'why']
 
 
-def filter_out_mods(mods):
-    for m in mods:
-        mod = m[2]
-        pos = mod[1]
-        modtype = m[1]
-        word = mod[0]
+def filter_word_type(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
+    """Filters the passed in list by the removable word types."""
+    return dparsed_item_value['rel'] in REMOVABLE_TYPES
 
-        if modtype == 'nmod:poss' and pos == 'PRP$':
-            continue
 
-        if word.lower() == 'when':
-            continue
+def filter_out_words(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
+    """Filters out certain words"""
+    return dparsed_item_value['word'] not in WORDS_TO_FILTER_OUT
 
-        yield m
 
-def is_node_relevant(n):
-    if n['rel'] not in REMOVABLE_TYPES:
-        return False
-    if n['word'].lower() == 'when':
-        return False
+def filter_out_circumscribed_mods(sent, dparsed_list, dparsed_item_key,
+                                  dparsed_item_value):
+    """Modifiers that have modifiers cannot be removed
+    e.g.: Very happy person. Happy can't be removed in this case
+    """
 
-    return True
+    return dparsed_list.nodes[int(dparsed_item_value['head'])]['rel']\
+        not in REMOVABLE_TYPES
+
 
 def plot_frequencies(data, ax, legend_label):
     # now sort tuples by count
@@ -76,14 +79,14 @@ def plot_frequencies(data, ax, legend_label):
     plt.ylim([.5, y[0]])
 
 
-def get_statistics_for_sentence(prev_stats, interesting_records):
+def get_statistics_for_sentence(prev_stats, dsent, interesting_records):
     prev_stats['count'] += len(interesting_records)
     prev_stats['sentences'] += 1
 
-    for r in interesting_records:
+    for i, r in interesting_records.items():
         # stanford type
-        r_t = r[1]
-        r_pos = r[2][1]
+        r_t = r['rel']
+        r_pos = r['tag']
 
         ts = prev_stats['types']
 
@@ -100,8 +103,8 @@ def get_statistics_for_sentence(prev_stats, interesting_records):
         ts[r_t]['pos'][r_pos] += 1
 
         # add the head, modifier, and modifier-head counts
-        head = r[0][0].lower()
-        mod = r[2][0].lower()
+        head = dsent[int(r['head'])]['word']
+        mod = r['word']
 
         m = prev_stats['modifiers']
         if mod not in m:
@@ -143,49 +146,23 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
     words_to_remove = sorted(set(words_to_remove))
 
     output_file.write(story.source + DELIMITER +
-                            story.storyid + DELIMITER +
-                            story_filename + DELIMITER + story.full_story +
-                            DELIMITER + story.original_title +
-                            DELIMITER + str(sentence_num))
+                      story.storyid + DELIMITER +
+                      story_filename + DELIMITER + story.full_story +
+                      DELIMITER + story.original_title +
+                      DELIMITER + str(sentence_num))
 
-    # Go though each word of the sentence and see if it should be
-    # removed.
-    '''
-    compiled_sentence = ''
-    for i, n in nodes.items():
-        print(n)
-        if i == 0:
-            continue
-
-        if i != 1 and n['word'] not in TOKENS_WITHOUT_SPACE:
-            compiled_sentence += ' '
-
-        # The word should be removed
-        if i in words_to_remove:
-            if (i - 1) not in words_to_remove:
-                compiled_sentence += '['
-
-        compiled_sentence += n['word']
-
-        # Do we need to close the parenth?
-        if i in words_to_remove:
-            if i + 1 not in words_to_remove:
-                compiled_sentence += ']'
-
-    output_file.write(DELIMITER + compiled_sentence)
-    '''
-    # Output the full sentencei
-    full_sentence = story.original_sentences[sentence_num] \
-                      .replace('\r','').replace('\n', '')
+    # Output the full sentence
+    full_sentence = story.original_sentences[sentence_num].replace(
+                    '\r', '').replace('\n', '')
     output_file.write(DELIMITER + full_sentence)
-
 
     # Output the interesting words
     output_file.write(DELIMITER + trigger_node['rel'])
     s = ''
 
-    for i in full_sentence.split()\
-                        [words_to_remove[0] - 1: words_to_remove[-1]]:
+    for i in full_sentence.split()[
+                words_to_remove[0] - 1: words_to_remove[-1]
+                ]:
         s += i + ' '
 
     output_file.write(DELIMITER + s)
@@ -199,7 +176,9 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
     output_file.write(DELIMITER + str(trigger_node['head']))
     output_file.write('\r\n')
 
-def handle_sentence(story, story_filename, sentence_num, output_file, stats):
+
+def handle_sentence(story, story_filename, sentence_num, output_file, stats,
+                    filter_list):
     """Handle the given sentence and output the results to output_file."""
     # parse the sentence
     # now it is just a matter of iterating over our items and removing them
@@ -214,19 +193,17 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats):
     # get the triples of the dep graph
     p = [list(parse.triples()) for parse in dsent]
 
-    # Triple format
-    # [(head, POS), dep-type, (mod, POS)]
-    # [(('walk', 'VB'), 'advmod', ('now', 'RB'))]
-    # this is always a list, but we always just want the first element
     dsent = dsent[0]
-
-    interesting_records = list(x for x in p[0] if x[1] in REMOVABLE_TYPES)
-    # apply some filtering of the records
-    interesting_records = list(filter_out_mods(interesting_records))
+    interesting_records = dsent.nodes
+    for filter_func in filter_list:
+        # TODO DSF - write down the effects of the filters
+        interesting_records = {k: v for k, v in interesting_records.items() if
+                                filter_func(sent, dsent, k, v)}
 
     count = len(interesting_records)
     # Get statistics based on the sentence
-    results = get_statistics_for_sentence(stats, interesting_records)
+    results = get_statistics_for_sentence(stats, dsent.nodes,
+                                          interesting_records)
 
     # if the count is greater than 0, we have something to remove, so let's go!
     if count == 0:
@@ -240,24 +217,20 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats):
         words_seen += 1
         if i == 0:
             continue
-
+        # Weird quirk for counting - we need to count apostrophes differently
         if "'" in n['word']:
             words_with_apos += 1
 
         words_to_remove = []
         # check to see if the node has any of the phenomena we care about
-        if is_node_relevant(n):
+        # TODO DSF see if it is in the interesting_records list??
+        if i in interesting_records.keys():
             # This is the occurrence we should consider,
             # so do the work
             words_to_remove.append(words_seen - words_with_apos)
-
             # also remove any dependent nodes
             remove_dependent_nodes(dsent.nodes, i, words_to_remove)
-
-            # if n['word'] == 'hair':
-            #     print(sent)
-            #     print(words_to_remove)
-            #
+            # Finally, write out the line to the fs
             write_line(story, dsent.nodes, n, words_to_remove, output_file,
                        story_filename, sentence_num)
 
@@ -349,7 +322,7 @@ def finish_up(output_dir, stats):
     output_stats(output_dir + '/stats/', stats)
 
 
-def do_loop(file_list, process_num, output_dir):
+def do_loop(file_list, process_num, output_dir, filter_list):
     prev_stats = {}
     prev_stats['count'] = 0 # total number of phenomena
     prev_stats['types'] = {} # types of phenomena
@@ -387,7 +360,7 @@ def do_loop(file_list, process_num, output_dir):
 
             prev_stats['stories'] += 1
             for line_num, sent in enumerate(story.dparsed_sentences):
-                handle_sentence(story, f, line_num, o, prev_stats)
+                handle_sentence(story, f, line_num, o, prev_stats, filter_list)
 
             stories_processed += 1
             if stories_processed % 500 == 0:
@@ -411,9 +384,10 @@ if __name__ == '__main__':
     argparser.add_argument('procs',
                            help='The number of processors to use.')
     argparser.add_argument('output_directory',help='The output path.')
+    argparser.add_argument('--run_all_filter_combinations',
+                           help='Should we run all filter combinations, or\
+                           just the passed in list? (T|F)', default=False)
     args = argparser.parse_args()
-
-
     proc_count = int(args.procs)
 
     # Get the number of lines in a file
@@ -438,9 +412,16 @@ if __name__ == '__main__':
         else:
             range_end = ((i + 1) * interval) - 1
 
+        # Let's set our filter list
+        filter_list = [
+            filter_word_type,
+            filter_out_words,
+            filter_out_circumscribed_mods
+            ]
+
         print('[' + str(range_start) + ':' + str(range_end) + ']')
         # make a process for each grouping
         p = Process(target=do_loop,
                     args=(file_list[range_start:range_end], i,
-                          args.output_directory))
+                          args.output_directory, filter_list))
         p.start()
