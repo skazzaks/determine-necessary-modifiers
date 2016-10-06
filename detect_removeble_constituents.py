@@ -175,7 +175,7 @@ def write_line(story, nodes, trigger_node, words_to_remove, output_file,
 
 
 def handle_sentence(story, story_filename, sentence_num, output_file, stats,
-                    filter_list):
+                    filter_list, filter_stats):
     """Handle the given sentence and output the results to output_file."""
     # parse the sentence
     # now it is just a matter of iterating over our items and removing them
@@ -193,9 +193,17 @@ def handle_sentence(story, story_filename, sentence_num, output_file, stats,
     dsent = dsent[0]
     interesting_records = dsent.nodes
     for filter_func in filter_list:
-        # TODO DSF - write down the effects of the filters
+        pre_filter_count = len(interesting_records)
+
         interesting_records = {k: v for k, v in interesting_records.items() if
-                                filter_func(sent, dsent, k, v)}
+            filter_func(sent, dsent, k, v)}
+
+        post_filter_count = len(interesting_records)
+
+        # Add this to our statistics
+        if pre_filter_count != post_filter_count:
+            filter_stats[filter_func.__qualname__] +=\
+                pre_filter_count - post_filter_count
 
     count = len(interesting_records)
 
@@ -308,6 +316,15 @@ def clean_sentence(preremove, to_delete, postremove):
 
     return preremove, to_delete, postremove
 
+
+def output_filter_stats(output_path, filter_stats):
+    with open(output_path + 'filter_stats', 'w') as f:
+        f.write('Totals by Filter Type: \r\n')
+
+        for k, v in filter_stats.items():
+            f.write(k + ": " + str(v) + '\r\n')
+
+
 def output_stats(output_path, stats):
     if not os.path.isdir(output_path):
         os.makedirs(output_path)
@@ -391,19 +408,27 @@ def output_stats(output_path, stats):
     plt.savefig(output_path + '/freq_dist.png')
 
 
-def finish_up(output_dir, stats):
+def finish_up(output_dir, stats, filter_stats):
     output_stats(output_dir + '/stats/', stats)
+    output_filter_stats(output_dir + '/stats/', filter_stats)
 
 
 def do_loop(file_list, process_num, output_dir, filter_list):
+    # Captures the stats about how many elements were removed due to various
+    # filters
+    filter_stats = {}
+
+    for f in filter_list:
+        filter_stats[f.__qualname__] = 0
+
     prev_stats = {}
-    prev_stats['count'] = 0 # total number of phenomena
-    prev_stats['types'] = {} # types of phenomena
-    prev_stats['sentences'] = 0 # sentence count
-    prev_stats['stories'] = 0 # story count
-    prev_stats['modifiers'] = {} # modifiers, their count, and their heads
-                                 # {'modifier': {'head': count}}
-    prev_stats['heads'] = {} # {'head': count}
+    prev_stats['count'] = 0  # total number of phenomena
+    prev_stats['types'] = {}  # types of phenomena
+    prev_stats['sentences'] = 0  # sentence count
+    prev_stats['stories'] = 0  # story count
+    prev_stats['modifiers'] = {}  # modifiers, their count, and their heads
+                                  # {'modifier': {'head': count}}
+    prev_stats['heads'] = {}  # {'head': count}
     stories_processed = 0
 
     output_file = output_dir + '/sentences_' + str(i) + '.csv'
@@ -436,7 +461,8 @@ def do_loop(file_list, process_num, output_dir, filter_list):
 
             prev_stats['stories'] += 1
             for line_num, sent in enumerate(story.dparsed_sentences):
-                handle_sentence(story, f, line_num, o, prev_stats, filter_list)
+                handle_sentence(story, f, line_num, o, prev_stats,
+                                filter_list, filter_stats)
 
             stories_processed += 1
             if stories_processed % 500 == 0:
@@ -447,7 +473,7 @@ def do_loop(file_list, process_num, output_dir, filter_list):
                     + str(datetime.timedelta(seconds=full_time)))
 
 
-        finish_up(output_dir, prev_stats)
+        finish_up(output_dir, prev_stats, filter_stats)
 
 
 if __name__ == '__main__':
