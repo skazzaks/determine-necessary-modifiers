@@ -129,7 +129,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Serialize stories to file')
     parser.add_argument('input_file', help='The input file or directory, ' +
                         'depending on the file type.')
-    parser.add_argument('output_directory', help='The directory for the output')
+    parser.add_argument('output_directory',
+                        help='The directory for the output')
     parser.add_argument('file_type', help='ROC or MICRO')
     args = parser.parse_args()
 
@@ -147,9 +148,8 @@ if __name__ == '__main__':
     parser = StanfordDependencyParser(
         model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
 
-
     p = Process(target=do_loop,
                 args=(proc, parser, 1,
-                        proc.get_total_count(),
-                        args.output_directory, 1))
+                      proc.get_total_count(),
+                      args.output_directory, 1))
     p.start()

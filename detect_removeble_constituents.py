@@ -50,7 +50,7 @@ def filter_word_type(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
 
 def filter_out_words(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
     """Filters out certain words"""
-    return dparsed_item_value['word'] not in WORDS_TO_FILTER_OUT
+    return dparsed_item_value['word'].lower() not in WORDS_TO_FILTER_OUT
 
 
 def filter_out_circumscribed_mods(sent, dparsed_list, dparsed_item_key,
@@ -336,18 +336,17 @@ def output_stats(output_path, stats):
         f.write('Phenomena per story: ' +
                 str(stats['count'] / stats['stories']) + '\r\n')
 
-
         f.write('Dependency Types:\r\n')
 
-        for k,v in stats['types'].items():
-            f.write('\t'  + str(k) + ": " + str(v['count']) + '\r\n')
+        for k, v in stats['types'].items():
+            f.write('\t' + str(k) + ": " + str(v['count']) + '\r\n')
 
         f.write('POS:\r\n')
 
-        for k,v in stats['types'].items():
+        for k, v in stats['types'].items():
             f.write('\t' + k + ':\r\n')
 
-            for k,v in v['pos'].items():
+            for k, v in v['pos'].items():
                 f.write('\t\t' + k + ': ' + str(v) + '\r\n')
 
     fig, ax = plt.subplots()
@@ -385,7 +384,7 @@ def output_stats(output_path, stats):
         # header
         f.write('head' + DELIMITER + 'count\r\n')
 
-        for k,v in stats['heads'].items():
+        for k, v in stats['heads'].items():
             f.write(k + DELIMITER + str(v) + '\r\n')
             all_heads.append((k, v))
 
@@ -396,13 +395,12 @@ def output_stats(output_path, stats):
         # header
         f.write('modifier' + DELIMITER + 'count\r\n')
 
-        for k,v in stats['modifiers'].items():
+        for k, v in stats['modifiers'].items():
             s = sum(v.values())
             f.write(k + DELIMITER + str(s) + '\r\n')
             all_mods.append((k, s))
 
         plot_frequencies(all_mods, ax, 'Modifier')
-
 
     plt.legend()
     plt.savefig(output_path + '/freq_dist.png')
@@ -434,6 +432,7 @@ def do_loop(file_list, process_num, output_dir, filter_list):
     output_file = output_dir + '/sentences_' + str(i) + '.csv'
     with(open(output_file, 'w')) as o:
         # Write a header
+        # WARNING! A change here needs to be propagated to the slice file
         o.write('Source' + DELIMITER +
                           'StoryID' + DELIMITER +
                           'File' + DELIMITER +
