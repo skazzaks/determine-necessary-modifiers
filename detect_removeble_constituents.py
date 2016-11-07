@@ -43,6 +43,7 @@ WORDS_TO_FILTER_OUT = ['when',
                        'why']
 
 
+
 def filter_word_type(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
     """Filters the passed in list by the removable word types."""
     return dparsed_item_value['rel'] in REMOVABLE_TYPES
@@ -51,6 +52,21 @@ def filter_word_type(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
 def filter_out_words(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
     """Filters out certain words"""
     return dparsed_item_value['word'].lower() not in WORDS_TO_FILTER_OUT
+
+
+def filter_out_non_verb_and_noun_heads(sent, dparsed_list, dparsed_item_key,
+                                       dparsed_item_value):
+    """Filters out heads that are not of type VB (Verb or NN (Noun) """
+    # pos_mod = dparsed_item_value['ctag']
+    pos_head = dparsed_list.nodes[dparsed_item_value['head']]['ctag']
+    # head = dparsed_list.nodes[dparsed_item_value['head']]['word']
+
+    # print("[Mod | Head] = [ " + pos_mod + " | " + pos_head + " ] " + head)
+
+    if pos_head in ['NN', 'NNS'] or pos_head.startswith('VB'):
+        return True
+
+    return False
 
 
 def filter_out_circumscribed_mods(sent, dparsed_list, dparsed_item_key,
@@ -517,7 +533,8 @@ if __name__ == '__main__':
         filter_list = [
             filter_word_type,
             filter_out_words,
-            filter_out_circumscribed_mods
+            filter_out_circumscribed_mods,
+            filter_out_non_verb_and_noun_heads,
             ]
 
         print('[' + str(range_start) + ':' + str(range_end) + ']')
