@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 plt.rcdefaults()
 import numpy as np
 import matplotlib.pyplot as plt
+from nltk.stem import WordNetLemmatizer
 
 EXCLUDED_POS = ['NNP', 'NN', 'VBP', 'VBD', '.', 'CC', 'DT', 'NNS', 'IN', 'PRP',
                 'TO', 'VB', 'PRP$', 'VBG', ',', 'VBN', 'VBZ', 'WP']
@@ -42,6 +43,33 @@ WORDS_TO_FILTER_OUT = ['when',
                        'how',
                        'why']
 
+BROAD_VERBS = ['make',
+               'be',
+               'have',
+               'get',
+               'go',
+               'take',
+               'do',
+               'give']
+
+wordnet_lemmatizer = WordNetLemmatizer()
+
+
+def filter_broad_verbs(sent, dparsed_list, dparsed_item_key,
+                       dparsed_item_value):
+    """Filters out verbs that are too broad and thus probably not very useful
+    in the last analysis"""
+    pos_head = dparsed_list.nodes[dparsed_item_value['head']]['ctag']
+    word_head = dparsed_list.nodes[dparsed_item_value['head']]['word']
+    if pos_head.startswith('VB'):
+        # If we have a verb on our hands, we ned to get lemmatize and see if
+        # it is a verb we don't want to consider because it is too broad
+        l_word_head = wordnet_lemmatizer.lemmatize(word_head, pos='v')
+
+        if l_word_head in BROAD_VERBS:
+            return False
+
+    return True
 
 
 def filter_word_type(sent, dparsed_list, dparsed_item_key, dparsed_item_value):
@@ -535,6 +563,7 @@ if __name__ == '__main__':
             filter_out_words,
             filter_out_circumscribed_mods,
             filter_out_non_verb_and_noun_heads,
+            filter_broad_verbs,
             ]
 
         print('[' + str(range_start) + ':' + str(range_end) + ']')
