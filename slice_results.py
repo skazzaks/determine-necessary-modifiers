@@ -10,7 +10,7 @@ import math
 from collections import OrderedDict
 
 # The maximimum number of records to get per modifier
-MAX_PER_MODIFIER = 50
+MAX_PER_MODIFIER = 15
 MAX_PER_FILTER = 6000
 FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
