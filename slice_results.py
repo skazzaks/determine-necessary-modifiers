@@ -8,9 +8,11 @@ import csv
 import argparse
 import math
 from collections import OrderedDict
+import operator
 
 # The maximimum number of records to get per modifier
 MAX_PER_MODIFIER = 15
+MAX_PER_HEAD_MODIFIER = 2
 MAX_PER_FILTER = 6000
 FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
@@ -22,7 +24,7 @@ def filter_get_specific_modifiers(freq_list_num, freq_list_mod, final_mods,
     """Takes in a list of modifiers that we definitely want to include and
     finds them in our big list, adjusting the remaining count accordingly.
     """
-    mod_list_to_include = ['good']  # TODO
+    mod_list_to_include = ['good', 'great', 'new']  # TODO
     total_used = 0
 
     for m in mod_list_to_include:
@@ -234,11 +236,12 @@ def do_the_work(data_file, freq_file, output_dir, goal_count,
     """
     Reads in all of our data and filters out records based on our criteria
     """
+    buffered_goal_count = goal_count + 100
     total_line_count = get_total_line_count(data_file)
     freq_list_num, freq_list_mod = get_frequency_list_from_file(freq_file)
 
     modifiers = get_list_of_modifiers_to_include(freq_list_num, freq_list_mod,
-                                                 goal_count,
+                                                 buffered_goal_count,
                                                  min_instance_count,
                                                  filters)
 
@@ -249,28 +252,66 @@ def do_the_work(data_file, freq_file, output_dir, goal_count,
     log.debug(sum(v for k, v in modifiers.items() if k == 'good'))
 
     # Sanity check
-    if sum(modifiers.values()) != goal_count:
+    if sum(modifiers.values()) != buffered_goal_count:
         print("ERROR! We didn't get enough records!")
         exit()
 
     # Now that we have the modifiers, get the list
-    create_list_of_results(data_file, output_dir, modifiers)
+    create_list_of_results(data_file, output_dir, modifiers, goal_count)
 
 
-def create_list_of_results(data_file, output_dir, final_mod_list):
+def final_filter_check_max_mod_heads(mod_heads_list, mod, head):
+    key = (mod, head)
+    if key not in mod_heads_list.keys():
+        mod_heads_list[key] = 0
+
+    if mod_heads_list[key] < MAX_PER_HEAD_MODIFIER:
+        mod_heads_list[key] += 1
+        return True
+
+    return False
+
+
+def output_statistics(output_file, used_mods, used_mod_heads):
+    """Outputs some final statistics about our final list, including the
+    mods and heads used"""
+    with open(output_file, 'w') as o:
+        o.write("Distinct modifiers: " + str(len(used_mods.keys())) + '\n')
+        o.write("Distinct modifier/head combination: " +
+                str(len(used_mod_heads.keys())) + '\n')
+
+        o.write("Modifier List:\n")
+        sorted_mods = sorted(used_mods.items(),
+                             key=operator.itemgetter(1),
+                             reverse=True)
+
+        for mod in sorted_mods:
+            o.write("\tMod: " + str(mod[0]) + "\tCount: " + str(mod[1]) + '\n')
+            o.write("\t\tHeads: ")
+            for k, v in used_mod_heads.items():
+                if k[0] == mod[0]:
+                    o.write(k[1] + '\t')
+            o.write('\n')
+        o.write('\n\n')
+
+
+def create_list_of_results(data_file, output_dir, final_mod_list, goal_count):
     """Given the original data file, the directory to output too, and the
     list of modifiers we should pull out, grabs out the results.
     """
     COLUMN_MODIFIER = 8
+    COLUMN_HEAD = 9
+    used_mod_heads = {}
+    used_mods = {}
 
-    log.debug(final_mod_list)
+    # log.debug(final_mod_list)
     with open(data_file, 'r') as f:
         with open(output_dir + '/final_modifier_list.csv', 'w') as o:
             c = csv.reader(f, delimiter='|', quotechar='\x07')
 
-            count = 0
             in_count = 0
             total = 0
+            total_used = 0
             DELIMITER = '|'
             o.write('Source' + DELIMITER +
                     'StoryID' + DELIMITER +
@@ -293,10 +334,17 @@ def create_list_of_results(data_file, output_dir, final_mod_list):
             for r in c:
                 total += 1
                 modifier = r[COLUMN_MODIFIER]
-
-                if modifier == 'good':
-                    count += 1
+                head = r[COLUMN_HEAD].lower()
                 if modifier in final_mod_list.keys():
+                    if not final_filter_check_max_mod_heads(used_mod_heads,
+                                                            modifier, head):
+                        continue
+
+                    if modifier not in used_mods.keys():
+                        used_mods[modifier] = 0
+
+                    used_mods[modifier] += 1
+
                     in_count += 1
                     final_mod_list[modifier] -= 1
                     if final_mod_list[modifier] == 0:
@@ -305,13 +353,17 @@ def create_list_of_results(data_file, output_dir, final_mod_list):
                     # log.debug('found modifier = ' + modifier)
                     o.write('|'.join(r) + '\r\n')
 
+                    if in_count == goal_count:
+                        break
+
     log.debug(final_mod_list)
     log.debug(sum(final_mod_list.values()))
-    log.debug('good count = ' + str(count))
     # log.debug('good used = ' + str(final_mod_list['good']))
     log.debug('in count = ' + str(in_count))
     log.debug('total = ' + str(total))
-
+    # log.debug('limit lists = ' + str(used_mod_heads))
+    output_statistics(output_dir + '/final_stats.txt',
+                      used_mods, used_mod_heads)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Slices our resulting data'
