@@ -50,7 +50,8 @@ BROAD_VERBS = ['make',
                'go',
                'take',
                'do',
-               'give']
+               'give',
+               'feel']
 
 wordnet_lemmatizer = WordNetLemmatizer()
 
