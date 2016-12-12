@@ -1,10 +1,9 @@
 """Builds a classifier based on modifier records and then classifies
 unseen records using it."""
 import argparse
-from classification_record import ModifierRecord
+from classification_record import AnnotatedModifierRecord
 import csv
 import logging
-import numpy as np
 from sklearn import svm
 from sklearn.feature_extraction import DictVectorizer
 
@@ -15,15 +14,29 @@ TRAINING_DATA_PERC = 80
 
 
 def extract_data_records(data_file):
-    """Extracts the records from the datafile.
+    """Extracts the records fro m the datafile.
     data_file - A data file with all the modifier records
     returns - A list of ModifierRecords
     """
     data_records = []
     with open(data_file, 'r') as csvfile:
-        csvreader = csv.reader(csvfile, delimiter='|')
+        csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        headers = next(csvreader)
+        log.debug(headers)
+        last_id = None
+        last_record = None
         for row in csvreader:
-            data_records.append(ModifierRecord(row))
+            current_id = row[0]
+
+            if current_id == last_id:
+                last_record.add_annotation_data(row, headers)
+            else:
+                current_record = AnnotatedModifierRecord(row, headers)
+                data_records.append(current_record)
+
+            last_id = current_id
+            last_record = current_record
+            log.debug(last_record)
 
     return data_records
 
@@ -77,7 +90,41 @@ def classify(classifier, vectorizer, data_records):
     feature_records, targets = extract_features(data_records)
     x_data = vectorizer.transform(feature_records).toarray()
 
-    print(classifier.predict(x_data))
+    # Get the list of predictions
+    predictions = classifier.predict(x_data)
+
+    log.debug('Predictions: ' + str(len(predictions)) + ' | Targets: '
+              + str(len(x_data)))
+
+    return targets, predictions
+
+
+def filter_out_non_helpful_records(data_records):
+    """Filters out records we don't want to train on. Right now this only
+    includes records where there was no consensus in the annotation"""
+    for r in data_records:
+        if r.get_cruciality() is None:
+            continue
+         # We only want records that got exactly 3 votes
+        if len(r.cruciality) != 3:
+            continue
+        else:
+            yield
+
+
+def evaluate(targets, predictions):
+    right_count = 0
+    total_count = 0
+
+    for i in range(0, len(targets)):
+        total_count += 1
+
+        if targets[i] == predictions[i]:
+            right_count += 1
+
+    right_perc = right_count / total_count
+    log.info('Right: ' + str(right_count) + '/' + str(total_count) +
+             ' Perc: ' + str(right_perc) + '%')
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
@@ -96,10 +143,11 @@ if __name__ == '__main__':
     training_data = data_records[:training_end_ind]
     test_data = data_records[training_end_ind:]
 
-    log.debug(len(training_data))
-    log.debug(training_data[-1].record_data)
-    log.debug(len(test_data))
-    log.debug(test_data[0].record_data)
+    # Filter out some records we don't care about
+    training_data = list(filter_out_non_helpful_records(training_data))
+
+    log.debug('Training data: ' + str(len(training_data)))
+    log.debug('Test data: ' + str(len(test_data)))
 
     # Build a classifier from the data records
     log.info("Train classifier")
@@ -107,4 +155,8 @@ if __name__ == '__main__':
 
     # Classify unseen records
     log.info("Classify unseen records")
-    classify(classifier, vectorizer, test_data)
+    targets, predictions = classify(classifier, vectorizer, test_data)
+
+    # Evaluation
+    log.info('Evaluation results')
+    evaluate(targets, predictions)
