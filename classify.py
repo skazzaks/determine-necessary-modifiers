@@ -105,11 +105,58 @@ def filter_out_non_helpful_records(data_records):
     for r in data_records:
         if r.get_cruciality() is None:
             continue
-         # We only want records that got exactly 3 votes
+        # We only want records that got exactly 3 votes
         if len(r.cruciality) != 3:
             continue
         else:
             yield
+
+
+def analyze_results(data_records):
+    """Does a quick analysis of the different types of results acquired"""
+    # Let's calculate what percentage of records were had which level of
+    # agreement
+    total_count = 0
+    #
+    totals_by_agreement = {}
+    totals_by_type = {}
+
+    for r in data_records:
+        # We only want the cases with 3 records
+        if len(r.cruciality) != 3:
+            continue
+
+        # Update the total count
+        total_count += 1
+
+        # Build up the agreement map
+        key = ' '.join(sorted(r.cruciality))
+
+        if key not in totals_by_agreement.keys():
+            totals_by_agreement[key] = []
+
+        totals_by_agreement[key].append(r)
+
+        # Build up type map
+        cruciality = r.get_cruciality()
+        if cruciality not in totals_by_type.keys():
+            totals_by_type[cruciality] = []
+
+        totals_by_type[cruciality].append(r)
+
+    with open('data_analysis.txt', 'w') as o:
+        o.write('Total Record Count: ' + str(total_count) + '\n\n')
+        o.write('Agreement types and counts\n\n')
+        total_count = float(total_count)
+        for k, v in totals_by_agreement.items():
+            perc = float(len(v)) / total_count
+            o.write(str(k) + ':\t' + str(len(v)) + '\t' + str(perc) + '\n')
+
+        o.write('\nCruciality Counts\n\n')
+
+        for k, v in totals_by_type.items():
+            perc = float(len(v)) / total_count
+            o.write(str(k) + ':\t' + str(len(v)) + '\t' + str(perc) + '\n')
 
 
 def evaluate(targets, predictions):
@@ -136,6 +183,10 @@ if __name__ == '__main__':
 
     # Get the data records from the file
     data_records = extract_data_records(args.data_file)
+
+    # Now that we have all the records, let's do some analysis on them.
+    log.info('Analyzing Results')
+    analyze_results(data_records)
 
     # Split the dataset into training and test
     training_end_ind = int(len(data_records) * (TRAINING_DATA_PERC / 100.0))

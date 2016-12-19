@@ -67,7 +67,7 @@ class AnnotatedModifierRecord(ModifierRecord):
         # Now, let's see if any record has 2 or 3
         for k, v in result_map.items():
             if v >= 2:
-                return v
+                return k
         # If we didn't find a majority opinion, let's return 'None'
         return None
 
