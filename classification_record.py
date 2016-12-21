@@ -8,7 +8,11 @@ class ModifierRecord():
         self.COL_MODIFIER = 'modifier'
         self.COL_MODTYPE = 'modifier_type'
         self.COL_HEAD = 'head'
+        self.COL_MODIFIER_START_INDEX = 'removed_words_start_index'
+        self.COL_HEAD_INDEX = 'head_word_index'
+        self.COL_ORIGINAL_SENTENCE = 'original_sentence'
         self.store_values(row_data, headers)
+        self.original_line = '|'.join(row_data)
 
     def store_values(self, row_data, headers):
         for i, header in enumerate(headers):
@@ -77,6 +81,13 @@ class AnnotatedModifierRecord(ModifierRecord):
         features['modifier'] = self.data_map[self.COL_MODIFIER]
         features['modifier_type'] = self.data_map[self.COL_MODTYPE]
         features['head'] = self.data_map[self.COL_HEAD]
+
+        sent = self.data_map[self.COL_ORIGINAL_SENTENCE]
+        word_count = len(sent.split())
+        features['word_count'] = word_count
+        #features['modifier_start_index'] = self.data_map[
+        #                                   self.COL_MODIFIER_START_INDEX]
+        #features['head_index'] = self.data_map[self.COL_HEAD_INDEX]
 
         target = self.data_map[self.COL_CRUCIALITY]
 

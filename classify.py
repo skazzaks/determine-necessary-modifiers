@@ -12,6 +12,9 @@ logging.basicConfig(format=FORMAT, level=logging.INFO)
 log = logging.getLogger('classify')
 TRAINING_DATA_PERC = 80
 
+# Cheating to use a global - just want to store the headers
+csv_record_headers = ''
+
 
 def extract_data_records(data_file):
     """Extracts the records fro m the datafile.
@@ -20,8 +23,10 @@ def extract_data_records(data_file):
     """
     data_records = []
     with open(data_file, 'r') as csvfile:
+        global csv_record_headers
         csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         headers = next(csvreader)
+        csv_record_headers = '|'.join(headers)
         log.debug(headers)
         last_id = None
         last_record = None
@@ -67,7 +72,7 @@ def build_classifier(data_records):
     """
 
     # Make a classifier
-    classifier = svm.SVC(gamma=0.01, C=100.)
+    classifier = svm.SVC(kernel='linear', gamma=0.01, C=100.)
 
     # Get features and targets from the dataset
     feature_list, targets = extract_features(data_records)
@@ -109,7 +114,7 @@ def filter_out_non_helpful_records(data_records):
         if len(r.cruciality) != 3:
             continue
         else:
-            yield
+            yield r
 
 
 def analyze_results(data_records):
@@ -173,6 +178,43 @@ def evaluate(targets, predictions):
     log.info('Right: ' + str(right_count) + '/' + str(total_count) +
              ' Perc: ' + str(right_perc) + '%')
 
+
+def write_out_ext_spreadsheet(test_data, targets, predictions):
+    """This writes out a new spreadsheet that is complemented with the new
+    information we have learned: the prediction of cruciality."""
+    with open('modifiers_with_predictions.csv', 'w') as o:
+        o.write(csv_record_headers +
+                '| aggregate_cruciality|'
+                + 'predicted_cruciality\n')
+
+        # Write out each record
+        for i, r in enumerate(test_data):
+            o.write(r.original_line)
+            o.write('| ' + str(r.get_cruciality()))
+            o.write('| ' + predictions[i])
+            o.write('\n')
+
+    with open('stats_incorrect_predictions.txt', 'w') as o:
+        wrong_map = {}
+        for i, r in enumerate(test_data):
+            pred = predictions[i]
+            act = targets[i]
+
+            if pred == act:
+                continue
+
+            # We got an error, let's see which type
+            key = pred + '-> ' + act
+
+            if key not in wrong_map.keys():
+                wrong_map[key] = 0
+
+            wrong_map[key] += 1
+
+        for k, v in wrong_map.items():
+            o.write(k + '\t' + str(v) + '\n')
+
+
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
                          description='Builds a classifier for the given data \
@@ -202,7 +244,7 @@ if __name__ == '__main__':
 
     # Build a classifier from the data records
     log.info("Train classifier")
-    classifier, vectorizer = build_classifier(data_records)
+    classifier, vectorizer = build_classifier(training_data)
 
     # Classify unseen records
     log.info("Classify unseen records")
@@ -211,3 +253,7 @@ if __name__ == '__main__':
     # Evaluation
     log.info('Evaluation results')
     evaluate(targets, predictions)
+
+    # Write out the records to file
+    log.info('Writing out new expanded spreadsheet')
+    write_out_ext_spreadsheet(test_data, targets, predictions)
