@@ -1,4 +1,10 @@
 """Contains the classes we need for classification."""
+import dill
+import logging
+
+FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+logging.basicConfig(format=FORMAT, level=logging.INFO)
+log = logging.getLogger('classification_record')
 
 
 class ModifierRecord():
@@ -11,8 +17,16 @@ class ModifierRecord():
         self.COL_MODIFIER_START_INDEX = 'removed_words_start_index'
         self.COL_HEAD_INDEX = 'head_word_index'
         self.COL_ORIGINAL_SENTENCE = 'original_sentence'
+        self.COL_FILE_TO_DPARSED_STORY = 'file'
+        self.COL_SENTENCE_NUM = 'sentence_number'
         self.store_values(row_data, headers)
         self.original_line = '|'.join(row_data)
+        # WARNING! This relies on the parsed stories being in the location
+        # in the csv file. You might have to do some work to get this feature
+        # to work.
+        self.story = dill.load(open(
+                         self.data_map[
+                            self.COL_FILE_TO_DPARSED_STORY], 'rb'))
 
     def store_values(self, row_data, headers):
         for i, header in enumerate(headers):
@@ -75,20 +89,79 @@ class AnnotatedModifierRecord(ModifierRecord):
         # If we didn't find a majority opinion, let's return 'None'
         return None
 
-    def get_features_and_target(self):
+    def get_depth_feature(self):
+        """Gets the 'depth' of the modifier in the dependency tree."""
+        sent_num = int(self.data_map[self.COL_SENTENCE_NUM])
+        mod = self.data_map[self.COL_MODIFIER]
+        dsent = self.story.dparsed_sentences[sent_num][0]
+        key = None
+
+        for k in dsent.nodes:
+            if dsent.nodes[k]['word'] == mod:
+                key = k
+                break
+
+        depth = self.determine_depth(key, dsent.nodes, 0)
+
+        return depth
+
+    def determine_depth(self, key_current_node, nodes, current_depth):
+        """Recursive method that determines the depth of the current node
+        in the tree"""
+        head_key = nodes[key_current_node]['head']
+        if head_key is None:
+            return current_depth
+        else:
+            return self.determine_depth(head_key, nodes, current_depth + 1)
+
+    def add_word_embedding_features(self, embedding_model, word, features,
+                                    column):
+        """Appends word embedding features using the passed in trained
+        model
+
+        embedding_model - the gensim.Word2Vec model
+        word - The word for which we should get the features
+        features - The current list of features
+        """
+        word = word.lower()
+
+        try:
+            dims = embedding_model[word]
+        except KeyError:
+            # If we encounter and OOV word, just make it a basic stop word
+            dims = embedding_model['the']
+
+        # For each dimension in our resulting vector, make a new feature
+        for i, d in enumerate(dims):
+            features[column + 'emb_word_'+str(i)] = d
+
+    def get_features_and_target(self, embedding_model):
         """Returns the features and the target for the current record"""
         features = {}
-        features['modifier'] = self.data_map[self.COL_MODIFIER]
+        # features['modifier'] = self.data_map[self.COL_MODIFIER]
         features['modifier_type'] = self.data_map[self.COL_MODTYPE]
-        features['head'] = self.data_map[self.COL_HEAD]
-
+        # features['head'] = self.data_map[self.COL_HEAD]
+        self.add_word_embedding_features(embedding_model,
+                                         self.data_map[self.COL_MODIFIER],
+                                         features,
+                                         self.COL_MODIFIER)
+        self.add_word_embedding_features(embedding_model,
+                                         self.data_map[self.COL_HEAD],
+                                         features,
+                                         self.COL_HEAD)
         sent = self.data_map[self.COL_ORIGINAL_SENTENCE]
         word_count = len(sent.split())
         features['word_count'] = word_count
-        #features['modifier_start_index'] = self.data_map[
+        # features['modifier_start_index'] = self.data_map[
         #                                   self.COL_MODIFIER_START_INDEX]
-        #features['head_index'] = self.data_map[self.COL_HEAD_INDEX]
+        # features['head_index'] = self.data_map[self.COL_HEAD_INDEX]
+        # The depth of the modifier in the dependency parse tree - helps
+        # a percentage point.
+        # WARNING! Relies upon dparsed stories cached on the harddrive at the
+        # location specified in the final csv file.
+        features['mod_depth'] = self.get_depth_feature()
 
+        log.info(features)
         target = self.data_map[self.COL_CRUCIALITY]
 
         return features, target

@@ -6,6 +6,7 @@ import csv
 import logging
 from sklearn import svm
 from sklearn.feature_extraction import DictVectorizer
+from gensim.models import Word2Vec
 
 FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
 logging.basicConfig(format=FORMAT, level=logging.INFO)
@@ -46,7 +47,7 @@ def extract_data_records(data_file):
     return data_records
 
 
-def extract_features(modifier_records):
+def extract_features(modifier_records, embedded_model):
     """
     Extracts the features we care about from the given list of records
 
@@ -56,14 +57,14 @@ def extract_features(modifier_records):
     feature_records = []
     targets = []
     for r in modifier_records:
-        feature_dict, target = r.get_features_and_target()
+        feature_dict, target = r.get_features_and_target(embedded_model)
         feature_records.append(feature_dict)
         targets.append(target)
 
     return feature_records, targets
 
 
-def build_classifier(data_records):
+def build_classifier(data_records, embedded_model):
     """builds a classifier from the data_records
     data_records - The list of records that should be used to
     build the classifier
@@ -75,7 +76,7 @@ def build_classifier(data_records):
     classifier = svm.SVC(kernel='linear', gamma=0.01, C=100.)
 
     # Get features and targets from the dataset
-    feature_list, targets = extract_features(data_records)
+    feature_list, targets = extract_features(data_records, embedded_model)
 
     # Fit the data
     vec = DictVectorizer()
@@ -85,14 +86,14 @@ def build_classifier(data_records):
     return classifier, vec
 
 
-def classify(classifier, vectorizer, data_records):
+def classify(classifier, vectorizer, data_records, embedded_model):
     """Classifies data_records based on the classifier.
 
     classifier - the classifier that will classify the data
     vectorizer - the vectorizer that converts the features to a vector
     data_records - the data to be classified
     """
-    feature_records, targets = extract_features(data_records)
+    feature_records, targets = extract_features(data_records, embedded_model)
     x_data = vectorizer.transform(feature_records).toarray()
 
     # Get the list of predictions
@@ -221,9 +222,12 @@ if __name__ == '__main__':
                          and then classifies unseen data based upon it.')
     argparser.add_argument('data_file', help='The data that is to be ' +
                            'classified.')
+    argparser.add_argument('word2vec_file', help='The full path to the \
+    word embedding file.')
     args = argparser.parse_args()
 
     # Get the data records from the file
+    log.info('Extracting Data Records')
     data_records = extract_data_records(args.data_file)
 
     # Now that we have all the records, let's do some analysis on them.
@@ -242,13 +246,17 @@ if __name__ == '__main__':
     log.debug('Training data: ' + str(len(training_data)))
     log.debug('Test data: ' + str(len(test_data)))
 
+    # Load word embedding file
+    log.info('Loading in word embedding file')
+    model = Word2Vec.load_word2vec_format(args.word2vec_file, binary=False)
+
     # Build a classifier from the data records
     log.info("Train classifier")
-    classifier, vectorizer = build_classifier(training_data)
+    classifier, vectorizer = build_classifier(training_data, model)
 
     # Classify unseen records
     log.info("Classify unseen records")
-    targets, predictions = classify(classifier, vectorizer, test_data)
+    targets, predictions = classify(classifier, vectorizer, test_data, model)
 
     # Evaluation
     log.info('Evaluation results')

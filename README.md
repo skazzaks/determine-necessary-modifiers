@@ -23,7 +23,7 @@ Description of files:
     position in the sentence.
 - slice_results.py - Takes the csv output by detect_removable_constituents.py
     and slices it down to an inputted size according to different criteria.
-
+- helpers.py - A module with a helper class, Story.
 
 Usage:
 
