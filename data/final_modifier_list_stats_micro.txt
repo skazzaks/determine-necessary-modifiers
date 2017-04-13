@@ -1,0 +1,729 @@
+Distinct modifiers: 362
+Distinct modifier/head combination: 567
+Modifier List:
+	Mod: only	Count: 15
+		Heads: people	react	watched	required	rates	secretion	prescribed	recommend	turning	tests	amount	lead	collected	companies	
+	Mod: many	Count: 15
+		Heads: mines	people	factors	women	assignments	visitors	game	banks	ways	promises	practitioners	employees	patients	
+	Mod: also	Count: 15
+		Heads: coincidence	suffer	paid	cap	challenge	cover	result	's	events	brings	increase	saves	depends	stand	
+	Mod: other	Count: 14
+		Heads: means	hand	countries	instruments	assignments	states	choirboys	rubbish	animals	people	forms	companies	day	choices	
+	Mod: public	Count: 12
+		Heads: officers	broadcasters	urination	tv	holidays	broadcasting	services	transport	channels	
+	Mod: higher	Count: 11
+		Heads: speeds	rent	fine	degree	rents	fines	degrees	subsidy	leaving	
+	Mod: same	Count: 10
+		Heads: things	day	income	expertise	moles	actors	time	way	flat	
+	Mod: new	Count: 10
+		Heads: virus	infections	car	xyz-123	life	felonies	kind	lease	tenants	
+	Mod: more	Count: 10
+		Heads: presence	pull	punished	weight	expected	pregnancies	use	time	fees	activities	
+	Mod: dog	Count: 9
+		Heads: poo	fee	city	waste	owners	owner	dirt	
+	Mod: long	Count: 8
+		Heads: spent	sentence	restrict	annoys	run	continue	time	
+	Mod: then	Count: 8
+		Heads: dominate	feel	misjudge	constitute	dispose	run	paying	restricted	
+	Mod: such	Count: 8
+		Heads: uniforms	obstacles	treatments	cds	counselling	data	waste	events	
+	Mod: However	Count: 7
+		Heads: mean	use	prevent	temps	confirmed	differs	stated	
+	Mod: actually	Count: 6
+		Heads: exist	separated	spent	designated	allow	need	
+	Mod: medical	Count: 6
+		Heads: therapies	advice	perspective	treatments	benefit	
+	Mod: individual	Count: 6
+		Heads: assignments	cases	modules	self-development	services	
+	Mod: therefore	Count: 6
+		Heads: maintained	offer	way	measure	acquired	help	
+	Mod: health	Count: 6
+		Heads: effects	companies	insurers	benefits	
+	Mod: already	Count: 6
+		Heads: regulated	decided	created	understood	invested	dominate	
+	Mod: even	Count: 6
+		Heads: touch	outlets	designated	used	need	invested	
+	Mod: rent	Count: 6
+		Heads: contracts	increase	control	index	increases	
+	Mod: again	Count: 5
+		Heads: raised	time	supermarkets	moment	become	
+	Mod: additional	Count: 5
+		Heads: expenditure	times	control	freedom	rescues	
+	Mod: often	Count: 5
+		Heads: required	copied	place	report	wasted	
+	Mod: tax	Count: 5
+		Heads: evaders	delinquents	data	authorities	
+	Mod: still	Count: 5
+		Heads: produces	sell	informed	need	stone-cold	
+	Mod: conventional	Count: 5
+		Heads: therapies	treatments	medicine	
+	Mod: constantly	Count: 5
+		Heads: astonished	rising	shrinking	recorded	
+	Mod: Indeed	Count: 4
+		Heads: competency	ended	fault	argue	
+	Mod: really	Count: 4
+		Heads: benefit	want	watch	spent	
+	Mod: however	Count: 4
+		Heads: carries	demonstrate	covered	find	
+	Mod: Besides	Count: 4
+		Heads: driven	leaving	interest	allowed	
+	Mod: certain	Count: 4
+		Heads: level	risk	areas	audiences	
+	Mod: his	Count: 4
+		Heads: life	machine	wealth	body	
+	Mod: great	Count: 3
+		Heads: equipment	deal	
+	Mod: shopping	Count: 3
+		Heads: days	centres	
+	Mod: bachelor	Count: 3
+		Heads: thesis	degree	
+	Mod: good	Count: 3
+		Heads: assignments	grade	
+	Mod: tuition	Count: 2
+		Heads: fees	
+	Mod: morning-after	Count: 2
+		Heads: pill	
+	Mod: death	Count: 2
+		Heads: penalty	
+	Mod: insurance	Count: 2
+		Heads: companies	
+	Mod: intelligence	Count: 2
+		Heads: services	
+	Mod: capital	Count: 2
+		Heads: punishment	
+	Mod: given	Count: 1
+		Heads: day	
+	Mod: Moreover	Count: 1
+		Heads: turns	
+	Mod: indirectly	Count: 1
+		Heads: watched	
+	Mod: weather	Count: 1
+		Heads: report	
+	Mod: negligent	Count: 1
+		Heads: owners	
+	Mod: horrific	Count: 1
+		Heads: crimes	
+	Mod: neither	Count: 1
+		Heads: entrepreneurs	
+	Mod: exorbitant	Count: 1
+		Heads: rents	
+	Mod: comparable	Count: 1
+		Heads: traffic	
+	Mod: immemorial	Count: 1
+		Heads: humans	
+	Mod: automatic	Count: 1
+		Heads: update	
+	Mod: waste	Count: 1
+		Heads: separation	
+	Mod: properly	Count: 1
+		Heads: separate	
+	Mod: philological	Count: 1
+		Heads: degrees	
+	Mod: part-time	Count: 1
+		Heads: while	
+	Mod: order	Count: 1
+		Heads: officers	
+	Mod: pharmaceutical	Count: 1
+		Heads: industry	
+	Mod: easier	Count: 1
+		Heads: method	
+	Mod: fee	Count: 1
+		Heads: officers	
+	Mod: treatment	Count: 1
+		Heads: methods	
+	Mod: demographically	Count: 1
+		Heads: viewed	
+	Mod: moral	Count: 1
+		Heads: reasons	
+	Mod: ideological	Count: 1
+		Heads: conformity	
+	Mod: desired	Count: 1
+		Heads: accommodation	
+	Mod: rarely	Count: 1
+		Heads: training	
+	Mod: bigger	Count: 1
+		Heads: role	
+	Mod: judicial	Count: 1
+		Heads: process	
+	Mod: Air	Count: 1
+		Heads: traffic	
+	Mod: thus	Count: 1
+		Heads: lead	
+	Mod: perfect	Count: 1
+		Heads: weather	
+	Mod: collected	Count: 1
+		Heads: experience	
+	Mod: short-term	Count: 1
+		Heads: fluctuations	
+	Mod: elderly	Count: 1
+		Heads: population	
+	Mod: receiver	Count: 1
+		Heads: devices	
+	Mod: transition	Count: 1
+		Heads: period	
+	Mod: pharmacists	Count: 1
+		Heads: required	
+	Mod: out	Count: 1
+		Heads: jam	
+	Mod: audience	Count: 1
+		Heads: rates	
+	Mod: American	Count: 1
+		Heads: services	
+	Mod: base	Count: 1
+		Heads: rent	
+	Mod: differentiated	Count: 1
+		Heads: analysis	
+	Mod: acquired	Count: 1
+		Heads: data	
+	Mod: similar	Count: 1
+		Heads: rules	
+	Mod: ball	Count: 1
+		Heads: metres	
+	Mod: maximum	Count: 1
+		Heads: increase	
+	Mod: air	Count: 1
+		Heads: traffic	
+	Mod: curling	Count: 1
+		Heads: skiing	
+	Mod: anti-virus	Count: 1
+		Heads: programme	
+	Mod: airport	Count: 1
+		Heads: project	
+	Mod: due	Count: 1
+		Heads: day	
+	Mod: currently	Count: 1
+		Heads: become	
+	Mod: minor	Count: 1
+		Heads: offense	
+	Mod: products	Count: 1
+		Heads: treatments	
+	Mod: luxury	Count: 1
+		Heads: prisons	
+	Mod: basic	Count: 1
+		Heads: right	
+	Mod: robust	Count: 1
+		Heads: democracy	
+	Mod: violent	Count: 1
+		Heads: crime	
+	Mod: mediocre	Count: 1
+		Heads: resolution	
+	Mod: gynaecological	Count: 1
+		Heads: examination	
+	Mod: working	Count: 1
+		Heads: world	
+	Mod: successfully	Count: 1
+		Heads: adjusted	
+	Mod: steering	Count: 1
+		Heads: system	
+	Mod: collectively	Count: 1
+		Heads: finance	
+	Mod: minimal	Count: 1
+		Heads: increase	
+	Mod: continued	Count: 1
+		Heads: operation	
+	Mod: full-time	Count: 1
+		Heads: employment	
+	Mod: work	Count: 1
+		Heads: times	
+	Mod: advanced	Count: 1
+		Heads: age	
+	Mod: quiz	Count: 1
+		Heads: shows	
+	Mod: complete	Count: 1
+		Heads: attention	
+	Mod: potentially	Count: 1
+		Heads: overwhelmed	
+	Mod: sales	Count: 1
+		Heads: outlets	
+	Mod: team	Count: 1
+		Heads: player	
+	Mod: medieval	Count: 1
+		Heads: times	
+	Mod: Only	Count: 1
+		Heads: question	
+	Mod: sure	Count: 1
+		Heads: vanish	
+	Mod: peak	Count: 1
+		Heads: times	
+	Mod: severe	Count: 1
+		Heads: clashes	
+	Mod: rigorously	Count: 1
+		Heads: limit	
+	Mod: almost	Count: 1
+		Heads: offense	
+	Mod: home	Count: 1
+		Heads: games	
+	Mod: popular	Count: 1
+		Heads: promises	
+	Mod: graver	Count: 1
+		Heads: punishment	
+	Mod: Perhaps	Count: 1
+		Heads: created	
+	Mod: weakish	Count: 1
+		Heads: mannheimers	
+	Mod: dirt-free	Count: 1
+		Heads: city	
+	Mod: despicable	Count: 1
+		Heads: crime	
+	Mod: evidently	Count: 1
+		Heads: collaborate	
+	Mod: unregulated	Count: 1
+		Heads: work	
+	Mod: Excessive	Count: 1
+		Heads: consumption	
+	Mod: neutral	Count: 1
+		Heads: console	
+	Mod: single	Count: 1
+		Heads: device	
+	Mod: legal	Count: 1
+		Heads: means	
+	Mod: larger	Count: 1
+		Heads: share	
+	Mod: quickly	Count: 1
+		Heads: killed	
+	Mod: study	Count: 1
+		Heads: assignments	
+	Mod: Owner-run	Count: 1
+		Heads: shops	
+	Mod: positive	Count: 1
+		Heads: effect	
+	Mod: financial	Count: 1
+		Heads: jam	
+	Mod: wiretapping	Count: 1
+		Heads: scandal	
+	Mod: aside	Count: 1
+		Heads: caters	
+	Mod: walk-in	Count: 1
+		Heads: clinic	
+	Mod: changed	Count: 1
+		Heads: terms	
+	Mod: unattractive	Count: 1
+		Heads: investment	
+	Mod: Large	Count: 1
+		Heads: events	
+	Mod: ad	Count: 1
+		Heads: campaign	
+	Mod: dark	Count: 1
+		Heads: surroundings	
+	Mod: whole	Count: 1
+		Heads: neighbourhood	
+	Mod: grade	Count: 1
+		Heads: upwards	
+	Mod: determined	Count: 1
+		Heads: character	
+	Mod: life	Count: 1
+		Heads: expectancy	
+	Mod: everyone	Count: 1
+		Heads: pay	
+	Mod: best	Count: 1
+		Heads: works	
+	Mod: Plus	Count: 1
+		Heads: wants	
+	Mod: particular	Count: 1
+		Heads: challenge	
+	Mod: opaque	Count: 1
+		Heads: scope	
+	Mod: TV/radio	Count: 1
+		Heads: fee	
+	Mod: designated	Count: 1
+		Heads: off-times	
+	Mod: high	Count: 1
+		Heads: prices	
+	Mod: central	Count: 1
+		Heads: airport	
+	Mod: waiting	Count: 1
+		Heads: embarrassment	
+	Mod: premium	Count: 1
+		Heads: payers	
+	Mod: concretely	Count: 1
+		Heads: proven	
+	Mod: personal	Count: 1
+		Heads: preferences	
+	Mod: urban	Count: 1
+		Heads: reasons	
+	Mod: deeper	Count: 1
+		Heads: dig	
+	Mod: customized	Count: 1
+		Heads: fees	
+	Mod: ticket	Count: 1
+		Heads: offices	
+	Mod: government	Count: 1
+		Heads: leaders	
+	Mod: security	Count: 1
+		Heads: forces	
+	Mod: traffic	Count: 1
+		Heads: regulations	
+	Mod: active	Count: 1
+		Heads: participation	
+	Mod: purchasing	Count: 1
+		Heads: data	
+	Mod: future	Count: 1
+		Heads: remain	
+	Mod: subjectively	Count: 1
+		Heads: experience	
+	Mod: computer	Count: 1
+		Heads: games	
+	Mod: doping	Count: 1
+		Heads: tests	
+	Mod: US	Count: 1
+		Heads: series	
+	Mod: actual	Count: 1
+		Heads: implementation	
+	Mod: abortive	Count: 1
+		Heads: effect	
+	Mod: cumulative	Count: 1
+		Heads: grade	
+	Mod: Unfortunately	Count: 1
+		Heads: lead	
+	Mod: decent	Count: 1
+		Heads: board	
+	Mod: top	Count: 1
+		Heads: priority	
+	Mod: of	Count: 1
+		Heads: thousands	
+	Mod: land	Count: 1
+		Heads: mines	
+	Mod: sheer	Count: 1
+		Heads: number	
+	Mod: rightly	Count: 1
+		Heads: annoys	
+	Mod: amply	Count: 1
+		Heads: researched	
+	Mod: days	Count: 1
+		Heads: move	
+	Mod: convicted	Count: 1
+		Heads: felons	
+	Mod: nasty	Count: 1
+		Heads: surprises	
+	Mod: legally	Count: 1
+		Heads: required	
+	Mod: required	Count: 1
+		Heads: effort	
+	Mod: everywhere	Count: 1
+		Heads: abandoned	
+	Mod: week	Count: 1
+		Heads: shopping	
+	Mod: Easy	Count: 1
+		Heads: access	
+	Mod: anticipated	Count: 1
+		Heads: objectives	
+	Mod: TV	Count: 1
+		Heads: fee	
+	Mod: slightly	Count: 1
+		Heads: restricted	
+	Mod: comfy	Count: 1
+		Heads: car	
+	Mod: inviolable	Count: 1
+		Heads: dignity	
+	Mod: dedicated	Count: 1
+		Heads: teacher	
+	Mod: Acquiring	Count: 1
+		Heads: cds	
+	Mod: attractive	Count: 1
+		Heads: park	
+	Mod: considerable	Count: 1
+		Heads: effort	
+	Mod: party	Count: 1
+		Heads: acquaintance	
+	Mod: three-figure	Count: 1
+		Heads: amount	
+	Mod: Alternative	Count: 1
+		Heads: treatments	
+	Mod: namely	Count: 1
+		Heads: games	
+	Mod: FIFA	Count: 1
+		Heads: tournament	
+	Mod: Windows	Count: 1
+		Heads: machine	
+	Mod: 15	Count: 1
+		Heads: credits	
+	Mod: pharmacist	Count: 1
+		Heads: myself	
+	Mod: sophisticated	Count: 1
+		Heads: programming	
+	Mod: clever	Count: 1
+		Heads: people	
+	Mod: structured	Count: 1
+		Heads: process	
+	Mod: oversight	Count: 1
+		Heads: committees	
+	Mod: hence	Count: 1
+		Heads: deter	
+	Mod: unwanted	Count: 1
+		Heads: pregnancies	
+	Mod: deterring	Count: 1
+		Heads: effect	
+	Mod: expensive	Count: 1
+		Heads: flats	
+	Mod: tighter	Count: 1
+		Heads: discipline	
+	Mod: parachute	Count: 1
+		Heads: jump	
+	Mod: older	Count: 1
+		Heads: generations	
+	Mod: clinical	Count: 1
+		Heads: trials	
+	Mod: police	Count: 1
+		Heads: presence	
+	Mod: exotic	Count: 1
+		Heads: locations	
+	Mod: Tax	Count: 1
+		Heads: data	
+	Mod: incredible	Count: 1
+		Heads: moment	
+	Mod: hygiene	Count: 1
+		Heads: problem	
+	Mod: Whenever	Count: 1
+		Heads: bumps	
+	Mod: Baltic	Count: 1
+		Heads: sea	
+	Mod: linguistics	Count: 1
+		Heads: degrees	
+	Mod: demographic	Count: 1
+		Heads: change	
+	Mod: football	Count: 1
+		Heads: team	
+	Mod: little	Count: 1
+		Heads: damage	
+	Mod: pure	Count: 1
+		Heads: coincidence	
+	Mod: traditionally	Count: 1
+		Heads: party	
+	Mod: mental	Count: 1
+		Heads: break	
+	Mod: beach	Count: 1
+		Heads: weather	
+	Mod: broad	Count: 1
+		Heads: expertise	
+	Mod: internal	Count: 1
+		Heads: changes	
+	Mod: indiscriminate	Count: 1
+		Heads: liberties	
+	Mod: bin	Count: 1
+		Heads: bags	
+	Mod: prescription	Count: 1
+		Heads: requirement	
+	Mod: sensible	Count: 1
+		Heads: idea	
+	Mod: ultimate	Count: 1
+		Heads: elimination	
+	Mod: former	Count: 1
+		Heads: opponents	
+	Mod: permanently	Count: 1
+		Heads: scanning	
+	Mod: Increasing	Count: 1
+		Heads: penalties	
+	Mod: known	Count: 1
+		Heads: threats	
+	Mod: advance	Count: 1
+		Heads: offices	
+	Mod: personnel	Count: 1
+		Heads: expenditure	
+	Mod: growing	Count: 1
+		Heads: digitization	
+	Mod: sold-out	Count: 1
+		Heads: stadium	
+	Mod: illegally	Count: 1
+		Heads: purchasing	
+	Mod: economic	Count: 1
+		Heads: difficulties	
+	Mod: time	Count: 1
+		Heads: embarrassment	
+	Mod: shooting	Count: 1
+		Heads: locations	
+	Mod: various	Count: 1
+		Heads: assignments	
+	Mod: War	Count: 1
+		Heads: opponents	
+	Mod: park	Count: 1
+		Heads: paths	
+	Mod: attending	Count: 1
+		Heads: physician	
+	Mod: laid-back	Count: 1
+		Heads: average	
+	Mod: necessary	Count: 1
+		Heads: capabilities	
+	Mod: product	Count: 1
+		Heads: placements	
+	Mod: probably	Count: 1
+		Heads: stations	
+	Mod: governing	Count: 1
+		Heads: party	
+	Mod: preselection	Count: 1
+		Heads: process	
+	Mod: Actually	Count: 1
+		Heads: pay	
+	Mod: something	Count: 1
+		Heads: everyone	
+	Mod: obviously	Count: 1
+		Heads: driven	
+	Mod: aging	Count: 1
+		Heads: society	
+	Mod: presumably	Count: 1
+		Heads: dirt	
+	Mod: airplane	Count: 1
+		Heads: catastrophe	
+	Mod: strong	Count: 1
+		Heads: interests	
+	Mod: promised	Count: 1
+		Heads: effect	
+	Mod: six	Count: 1
+		Heads: semesters	
+	Mod: longstanding	Count: 1
+		Heads: owners	
+	Mod: introductory	Count: 1
+		Heads: phase	
+	Mod: snap	Count: 1
+		Heads: shots	
+	Mod: forever	Count: 1
+		Heads: imprisoned	
+	Mod: serious	Count: 1
+		Heads: economist	
+	Mod: reaction	Count: 1
+		Heads: time	
+	Mod: Such	Count: 1
+		Heads: therapies	
+	Mod: nonsensical	Count: 1
+		Heads: investments	
+	Mod: approach	Count: 1
+		Heads: path	
+	Mod: peripheral	Count: 1
+		Heads: development	
+	Mod: innocent	Count: 1
+		Heads: people	
+	Mod: Current	Count: 1
+		Heads: regulations	
+	Mod: Cold	Count: 1
+		Heads: opponents	
+	Mod: sad	Count: 1
+		Heads: highlight	
+	Mod: indeed	Count: 1
+		Heads: act	
+	Mod: sports	Count: 1
+		Heads: car	
+	Mod: Facebook	Count: 1
+		Heads: account	
+	Mod: soap	Count: 1
+		Heads: operas	
+	Mod: recently	Count: 1
+		Heads: staggering	
+	Mod: clear	Count: 1
+		Heads: shortcomings	
+	Mod: weaker	Count: 1
+		Heads: individuals	
+	Mod: cross-country	Count: 1
+		Heads: skiing	
+	Mod: outfitted	Count: 1
+		Heads: university	
+	Mod: significantly	Count: 1
+		Heads: depends	
+	Mod: mainly	Count: 1
+		Heads: temps	
+	Mod: residential	Count: 1
+		Heads: construction	
+	Mod: frequently	Count: 1
+		Heads: result	
+	Mod: left	Count: 1
+		Heads: arm	
+	Mod: role	Count: 1
+		Heads: effect	
+	Mod: operations	Count: 1
+		Heads: issues	
+	Mod: relative	Count: 1
+		Heads: age	
+	Mod: lens	Count: 1
+		Heads: entrepreneurs	
+	Mod: skilled	Count: 1
+		Heads: labour	
+	Mod: ground-focused	Count: 1
+		Heads: attention	
+	Mod: in-house	Count: 1
+		Heads: forces	
+	Mod: western	Count: 1
+		Heads: therapies	
+	Mod: random	Count: 1
+		Heads: factors	
+	Mod: standard	Count: 1
+		Heads: uniform	
+	Mod: non-medical	Count: 1
+		Heads: practitioners	
+	Mod: report	Count: 1
+		Heads: time	
+	Mod: NSA	Count: 1
+		Heads: scandal	
+	Mod: means	Count: 1
+		Heads: remain	
+	Mod: night	Count: 1
+		Heads: created	
+	Mod: flexibility	Count: 1
+		Heads: times	
+	Mod: exact	Count: 1
+		Heads: moles	
+	Mod: occasional	Count: 1
+		Heads: mistakes	
+	Mod: Often	Count: 1
+		Heads: put	
+	Mod: failed	Count: 1
+		Heads: bank	
+	Mod: declining	Count: 1
+		Heads: rates	
+	Mod: bar	Count: 1
+		Heads: snack	
+	Mod: nighttime	Count: 1
+		Heads: trip	
+	Mod: though	Count: 1
+		Heads: put	
+	Mod: categorically	Count: 1
+		Heads: argue	
+	Mod: prime	Count: 1
+		Heads: times	
+	Mod: increasingly	Count: 1
+		Heads: sacrificed	
+	Mod: sobering	Count: 1
+		Heads: season	
+	Mod: younger	Count: 1
+		Heads: generations	
+	Mod: Supermarket	Count: 1
+		Heads: employees	
+	Mod: few	Count: 1
+		Heads: decades	
+	Mod: before	Count: 1
+		Heads: fitter	
+	Mod: basketball	Count: 1
+		Heads: team	
+	Mod: paid	Count: 1
+		Heads: day	
+	Mod: lazy	Count: 1
+		Heads: owners	
+	Mod: aircraft	Count: 1
+		Heads: noise	
+	Mod: package	Count: 1
+		Heads: insert	
+	Mod: scientific	Count: 1
+		Heads: work	
+	Mod: awful	Count: 1
+		Heads: crimes	
+	Mod: rental	Count: 1
+		Heads: rate	
+	Mod: job	Count: 1
+		Heads: while	
+	Mod: merely	Count: 1
+		Heads: use	
+	Mod: licencing	Count: 1
+		Heads: fee	
+	Mod: proper	Count: 1
+		Heads: brawl	
+	Mod: professional	Count: 1
+		Heads: advice	
+	Mod: rich	Count: 1
+		Heads: media	
+	Mod: Still	Count: 1
+		Heads: needs	
+	Mod: negative	Count: 1
+		Heads: impact	
+	Mod: tidy	Count: 1
+		Heads: kept	
+	Mod: itself	Count: 1
+		Heads: changes	
+
+

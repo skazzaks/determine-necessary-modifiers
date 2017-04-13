@@ -1,0 +1,4 @@
+crucial-> ungrammatical	26
+notcrucial-> ungrammatical	39
+crucial-> notcrucial	96
+notcrucial-> crucial	173

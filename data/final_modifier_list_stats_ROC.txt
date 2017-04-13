@@ -1,0 +1,585 @@
+Distinct modifiers: 290
+Distinct modifier/head combination: 2599
+Modifier List:
+	Mod: wonderful	Count: 15
+		Heads: scents	shade	time	gift	experience	flowers	birthday	tuxedo	news	man	job	solo	part	dinner	
+	Mod: apart	Count: 15
+		Heads: sniffles	fell	falling	tell	raised	spend	broke	color	gang	spent	torn	clean	fall	
+	Mod: ahead	Count: 15
+		Heads: zombies	lay	plan	hours	looked	ran	flashed	schedule	saw	pulled	started	sped	
+	Mod: record	Count: 15
+		Heads: producer	player	deal	label	representative	marathon	state	store	executive	contract	time	
+	Mod: birthday	Count: 15
+		Heads: party	parties	invitations	gift	wish	cake	card	boy	present	candles	
+	Mod: black	Count: 15
+		Heads: puppies	dog	eye	doberman	puppy	man	paper	lab	snake	cat	polish	slavery	
+	Mod: delicious	Count: 15
+		Heads: sandwich	cake	dinner	meal	pizza	pie	cheese	treat	dish	meals	burger	cupcake	soup	
+	Mod: really	Count: 15
+		Heads: stung	hurt	hoping	hated	wanted	loved	seems	needed	enjoyed	upset	liked	snake	
+	Mod: fire	Count: 15
+		Heads: truck	extinguisher	department	equipment	trucks	alarms	alarm	suit	tower	pit	drill	
+	Mod: red	Count: 15
+		Heads: sauce	lights	maple	home	tablets	velvet	paint	car	hair	liquid	stain	envelope	light	
+	Mod: local	Count: 15
+		Heads: store	library	shelter	shows	disco	newspaper	bar	team	class	school	theater	flavor	
+	Mod: now	Count: 15
+		Heads: stuck	allowed	draw	possesses	shares	saving	working	lift	pm	prepared	walk	homeowner	run	realize	eats	
+	Mod: office	Count: 15
+		Heads: scowling	work	lot	worker	chair	picnic	job	area	building	store	day	party	
+	Mod: good	Count: 15
+		Heads: batch	hand	time	deals	lawyer	job	one	grades	decision	news	blues	play	food	teacher	
+	Mod: Then	Count: 15
+		Heads: informed	let	offered	saw	invent	fell	put	checked	plugged	told	poured	met	decided	applied	
+	Mod: quietly	Count: 15
+		Heads: sit	snacked	crept	watched	giggling	tested	closed	walked	work	sat	top	playing	read	approach	
+	Mod: soccer	Count: 15
+		Heads: games	game	league	player	ball	competition	goal	team	match	field	balls	
+	Mod: large	Count: 15
+		Heads: tree	stick	building	property	crowd	group	crash	spider	lake	bathroom	tip	snake	whale	cocoa	collection	
+	Mod: tomorrow	Count: 15
+		Heads: come	playing	wear	mall	fix	pulled	run	build	write	turn	dye	close	attending	submitted	
+	Mod: trash	Count: 15
+		Heads: day	can	company	pile	bags	man	cans	bin	bag	items	
+	Mod: important	Count: 15
+		Heads: game	thing	audition	presentation	test	step	project	exam	match	meeting	interview	
+	Mod: free	Count: 15
+		Heads: sandwich	cookie	time	nacho	lunches	cookies	beer	lessons	line	area	boxes	contest	cream	
+	Mod: Finally	Count: 15
+		Heads: came	googled	relented	agreed	tidied	finds	called	tried	decided	afford	hit	left	
+	Mod: down	Count: 15
+		Heads: hated	laundry	guard	broken	sat	drinking	shed	trees	fell	shopped	pouring	payment	vest	
+	Mod: lunch	Count: 15
+		Heads: period	line	time	lady	meat	items	cafe	ladies	room	money	break	
+	Mod: once	Count: 15
+		Heads: drop	tried	playing	invited	enjoyed	knew	cat	favorite	buy	fishing	swimmer	used	slipped	entered	
+	Mod: safely	Count: 15
+		Heads: sit	arrived	walk	bounded	imprisoned	removed	drive	pulled	add	use	came	born	landed	
+	Mod: again	Count: 15
+		Heads: cackling	start	pranked	feel	ran	night	avoid	talk	certified	picked	wash	surfing	eat	ate	exercise	
+	Mod: very	Count: 15
+		Heads: scared	plane	satisfied	everyday	coordinated	week	bored	drawn	teacher	upset	friend	time	stressed	
+	Mod: chicken	Count: 15
+		Heads: ranch	coop	sandwiches	soup	curry	restaurant	salad	broth	wire	nuggets	
+	Mod: days	Count: 15
+		Heads: received	contacted	found	seen	staying	counted	purchase	dealing	earned	skipping	digging	ran	i	lived	enjoy	
+	Mod: online	Count: 15
+		Heads: profile	classes	gaming	site	tickets	tutorials	diary	store	sign	college	service	class	courses	conference	club	
+	Mod: long	Count: 15
+		Heads: sleeves	time	reading	class	raining	hike	list	walks	remember	day	morning	labor	play	dived	
+	Mod: month	Count: 15
+		Heads: heartbroken	cut	visit	dug	eaten	lost	sold	wait	program	heard	class	grounded	paid	
+	Mod: third	Count: 15
+		Heads: job	coach	grade	dog	college	time	out	year	interview	country	base	bowl	class	
+	Mod: fancy	Count: 15
+		Heads: dress	tiles	footwork	businesswoman	size	dresses	sundae	meal	dinner	sandals	restaurant	name	case	
+	Mod: strange	Count: 15
+		Heads: sounds	group	man	birds	noise	idea	presence	shape	dogs	dreams	figure	animal	noises	
+	Mod: last	Count: 15
+		Heads: candle	opened	bag	semester	week	period	drop	night	couples	hand	tests	person	second	years	
+	Mod: rock	Count: 15
+		Heads: star	ankle	walls	face	band	concert	album	climbing	ledge	climber	wall	song	
+	Mod: sports	Count: 15
+		Heads: teams	sponsorships	store	reporter	section	shop	drink	league	players	car	bar	history	
+	Mod: shopping	Count: 15
+		Heads: mall	cart	list	site	window	basket	spree	trip	center	bags	supplies	companion	
+	Mod: almost	Count: 15
+		Heads: wept	class	refused	hour	drowning	punched	nothing	drowned	fainted	fell	missed	died	
+	Mod: chess	Count: 15
+		Heads: match	abilities	piece	partner	team	games	pieces	tables	club	game	player	
+	Mod: old	Count: 15
+		Heads: license	pictures	necklace	friends	bib	camera	house	conditioner	man	bed	boss	bridesmaid	lady	
+	Mod: favorite	Count: 15
+		Heads: genres	thing	music	table	restaurant	author	memories	birds	place	foods	book	band	chocolate	shirt	animal	
+	Mod: barely	Count: 15
+		Heads: played	reach	worked	stand	keep	missed	understand	see	breath	speaks	knew	contain	felt	saw	
+	Mod: basketball	Count: 15
+		Heads: tournament	skills	match	league	shoes	team	court	player	championship	game	
+	Mod: gift	Count: 15
+		Heads: shop	wrapped	certificate	card	cards	idea	exchange	wrapper	box	
+	Mod: stuffed	Count: 15
+		Heads: toy	animal	bear	hippo	whale	animals	man	penguin	lion	monkey	peppers	
+	Mod: Christmas	Count: 15
+		Heads: carol	concert	tree	shopping	dinner	card	break	eve	gifts	table	bag	presents	
+	Mod: lost	Count: 15
+		Heads: child	trip	bag	sister	time	photos	control	love	mail	ads	cousin	cat	ted	book	
+	Mod: frozen	Count: 15
+		Heads: fish	place	burrito	pizza	water	pizzas	aisle	coffee	bottle	treat	sand	bananas	yogurt	door	
+	Mod: public	Count: 15
+		Heads: place	television	pool	speaking	class	careers	library	can	home	services	speak	position	
+	Mod: baby	Count: 15
+		Heads: girl	opossum	boy	brother	bro-bro	shower	grandson	boys	chick	bird	sister	
+	Mod: everywhere	Count: 15
+		Heads: mess	applying	opened	posted	caused	looked	found	find	searched	drove	wore	looking	spilled	
+	Mod: evening	Count: 15
+		Heads: tasted	found	realized	laid	woke	broke	gown	showed	applied	spend	join	trying	walked	cooking	practice	
+	Mod: perfect	Count: 15
+		Heads: score	trip	outfit	phone	pair	match	tree	sandwich	career	car	one	idea	birthday	shirt	
+	Mod: new	Count: 15
+		Heads: apartment	fabric	school	truck	items	product	family	mouse	student	knot	song	spot	home	dishes	
+	Mod: night	Count: 15
+		Heads: spent	stayed	decided	sleep	spend	time	heard	woke	sped	enjoyed	starting	camping	slept	
+	Mod: before	Count: 15
+		Heads: returned	worn	turned	skating	golfed	fishing	smoked	cooked	hidden	seen	tried	cleaning	driven	feeling	
+	Mod: worst	Count: 15
+		Heads: summer	weeks	player	shape	storms	nightmare	bowler	sweater	batch	cream	hits	experience	waitress	sickness	enemy	
+	Mod: beach	Count: 15
+		Heads: trip	barefoot	towel	riding	volleyball	bags	bag	house	party	vacation	wedding	days	
+	Mod: successfully	Count: 15
+		Heads: complete	dodged	quit	reached	changed	stroked	started	fix	hike	returned	tap	clawed	ran	ski	landed	
+	Mod: piano	Count: 15
+		Heads: piece	teacher	tie	result	lessons	recital	lesson	mat	tuner	concert	
+	Mod: back	Count: 15
+		Heads: seat	cocked	fell	asked	flip	door	sent	moved	walked	pay	let	come	locked	came	
+	Mod: friend	Count: 15
+		Heads: oreo	beth	josh	devin	martha	melissa	jim	sally	zack	samantha	susie	patty	laura	amy	alex.	
+	Mod: still	Count: 15
+		Heads: grows	decided	control	wanted	felt	managed	bathed	understand	failed	dig	friend	tasted	piling	hoped	
+	Mod: always	Count: 15
+		Heads: thought	woke	liked	loved	embarrassed	run	scared	girl	sweating	admired	wanted	loves	played	pain	
+	Mod: pizza	Count: 15
+		Heads: box	parlors	chains	dough	rolls	stone	restaurant	party	place	parlor	contest	
+	Mod: golf	Count: 15
+		Heads: shoes	balls	clubs	course	cart	stickers	classes	scramble	club	tournament	park	tour	trip	
+	Mod: few	Count: 15
+		Heads: bodies	minutes	weeks	hours	year	customers	months	days	couples	people	photos	lines	
+	Mod: art	Count: 15
+		Heads: pieces	teacher	exhibit	school	history	student	shower	museum	galleries	class	critic	easel	contest	
+	Mod: However	Count: 15
+		Heads: continued	wanted	reminded	picked	met	seemed	threw	found	notice	come	started	hated	hates	passed	
+	Mod: much	Count: 15
+		Heads: raved	practiced	fun	caffeine	loved	money	enjoying	joked	enjoyed	ordering	ate	played	
+	Mod: more	Count: 15
+		Heads: space	fun	victories	vitamins	time	screaming	information	veggies	practice	talent	money	milk	people	clothes	
+	Mod: inside	Count: 15
+		Heads: walked	ran	coming	put	run	carry	climbed	found	brought	came	stay	play	bring	
+	Mod: little	Count: 15
+		Heads: girl	puppy	brother	cousin	boy	team	bit	bird	puppies	girls	kids	parents	
+	Mod: first	Count: 15
+		Heads: time	wins	shot	concert	game	chair	person	class	tooth	day	assignment	snowfall	dog	home	child	
+	Mod: forward	Count: 15
+		Heads: pay	came	momentum	move	friends	looked	leaned	looking	marched	come	look	jolted	swing	
+	Mod: movie	Count: 15
+		Heads: suggestion	theaters	theatre	ticket	reviews	scene	deadpool	screen	theater	date	studio	requests	roles	buff	
+	Mod: however	Count: 15
+		Heads: continued	laughed	turns	awarded	understand	disabled	saw	day	smell	told	hours	approach	started	ring	proved	
+	Mod: yellow	Count: 15
+		Heads: dress	marker	color	crust	bus	retriever	flowers	lab	hair	flag	paper	papers	thing	
+	Mod: around	Count: 15
+		Heads: chauffeur	turn	keep	practice	chasing	throwing	shopped	yell	shook	heard	sniper	chase	swam	am	
+	Mod: young	Count: 15
+		Heads: student	lady	girl	artist	sons	couple	ones	boy	age	people	woman	man	
+	Mod: small	Count: 15
+		Heads: message	rip	children	run	gifts	dog	fire	pond	gift	shop	apartment	tree	scratch	bubble	
+	Mod: Now	Count: 15
+		Heads: friends	need	wears	wants	reptiles	sells	paid	enjoy	sees	installed	drive	agitated	spends	forced	mascot	
+	Mod: summer	Count: 15
+		Heads: trip	looking	camp	day	convinced	sent	helps	julie	visited	spot	vacation	wear	moved	decided	
+	Mod: card	Count: 15
+		Heads: box	trick	number	bill	game	debt	company	info	home	games	deck	
+	Mod: over	Count: 15
+		Heads: thousands	whipped	hours	practiced	years	way	hung	town	looked	months	chased	searching	dozen	joyed	
+	Mod: pet	Count: 15
+		Heads: advice	rabbit	pony	lizard	snake	rat	pig	cat	chihuahua	monkey	dog	store	bug	
+	Mod: training	Count: 15
+		Heads: wheels	session	class	books	period	people	school	game	program	employees	classes	
+	Mod: front	Count: 15
+		Heads: seat	entrance	aerial	workers	saying	gate	article	row	door	porch	yard	car	
+	Mod: food	Count: 15
+		Heads: cart	invention	stamps	virus	store	restaurant	poisoning	dish	market	court	truck	
+	Mod: green	Count: 15
+		Heads: house	tea	grass	shoelaces	poster	sauces	dress	shirt	room	cards	cucumber	glass	
+	Mod: there	Count: 15
+		Heads: speed	ran	sitting	drove	talking	article	lived	door	found	eat	meeting	
+	Mod: video	Count: 15
+		Heads: chats	tournaments	console	tester	store	gamer	system	game	player	games	
+	Mod: weird	Count: 15
+		Heads: noise	pain	looks	car	stain	design	reason	noises	feeling	hair	position	marks	people	figure	
+	Mod: famous	Count: 15
+		Heads: cliffs	restaurant	ballerina	singer	actress	designer	internet	magazine	musician	couple	skies	pies	soup	restaurants	
+	Mod: longer	Count: 15
+		Heads: friends	wanted	allowed	monk	target	felt	ripped	fish	needed	scared	wants	smell	talk	person	
+	Mod: Soon	Count: 15
+		Heads: learned	found	heard	increased	started	began	learning	part	phone	put	working	carving	eating	hung	tray	
+	Mod: tall	Count: 15
+		Heads: grass	horse	man	student	bowl	skin	men	cup	boots	hill	skis	tree	guy	mountain	
+	Mod: family	Count: 15
+		Heads: psychologist	business	room	emergency	member	stay	stew	dinner	picnic	sign	vacation	
+	Mod: English	Count: 15
+		Heads: class	essay	folders	assignment	teacher	homework	classes	professor	book	skills	day	report	paper	
+	Mod: yesterday	Count: 15
+		Heads: fight	driving	scoop	skating	painting	skip	called	met	lost	used	bought	felt	dressed	turned	
+	Mod: though	Count: 15
+		Heads: showed	stuck	smoking	felt	met	record	clean	afford	drawing	people	win	run	missing	grows	help	
+	Mod: best	Count: 15
+		Heads: way	swimmer	sauce	beth	beat	concert	man	student	beaches	friend	shirt	friends	behavior	
+	Mod: hard	Count: 15
+		Heads: work	crust	worked	milk	practiced	sport	time	studied	lockers	laughed	worker	months	
+	Mod: simply	Count: 15
+		Heads: wanted	said	flu	spent	diagnosed	forget	left	start	surgery	seem	fell	ignored	closed	look	
+	Mod: Today	Count: 15
+		Heads: decided	watching	ordered	finished	heard	said	decide	determined	found	wanted	bought	hoped	lifted	drove	
+	Mod: Suddenly	Count: 15
+		Heads: appeared	came	pulled	fell	caved	yelled	grabbed	saw	heard	received	looked	felt	
+	Mod: Luckily	Count: 15
+		Heads: left	felt	bought	ask	caught	found	approached	swam	agreed	lasts	uninjured	street	ended	fixed	
+	Mod: next	Count: 15
+		Heads: time	morning	crossing	day	sitting	thing	table	minutes	abandoned	game	month	told	fell	internet	
+	Mod: only	Count: 15
+		Heads: second	studied	wanted	asked	allowed	comes	one	belt	think	picked	scratch	found	controller	friend	source	
+	Mod: Easter	Count: 15
+		Heads: bonnets	eggs	day	outfit	basket	sue	hunt	hunting	decorations	bunny	candy	
+	Mod: older	Count: 15
+		Heads: woman	sister	cat	kids	ellen	car	brothers	man	brother	child	men	kid	
+	Mod: Sunday	Count: 15
+		Heads: awakened	meeting	pancakes	i	night	school	control	spent	paper	traffic	decided	woke	singing	nights	
+	Mod: dog	Count: 15
+		Heads: home	outside	urinating	run	feces	spray	park	hair	spot	chihuahua	whisperer	
+	Mod: professional	Count: 15
+		Heads: baker	photographer	help	cyclist	dancer	clown	tutor	player	salon	athletes	art	band	wrestler	game	
+	Mod: later	Count: 15
+		Heads: friend	come	came	call	minutes	found	sitting	apologized	sprained	met	years	returned	flew	
+	Mod: deep	Count: 15
+		Heads: fishing	south	end	pizza	jungle	cut	searched	pool	breath	fear	pushed	puddle	float	crunch	
+	Mod: brand	Count: 15
+		Heads: thousands	cellphone	car	friend	radio	smartphone	playstation	truck	toaster	phone	amplifiers	tv	maker	set	
+	Mod: eye	Count: 15
+		Heads: surgery	drops	shot	home	thing	exam	liner	makeup	glasses	doctor	test	contact	line	fatigue	
+	Mod: up	Count: 15
+		Heads: finished	slipped	threw	came	sell	stepped	playing	pick	woke	set	put	cleared	helped	
+	Mod: Alas	Count: 15
+		Heads: cook	became	forearms	fell	winter	like	forgot	realized	lost	caught	broke	died	work	found	
+	Mod: garage	Count: 15
+		Heads: door	ceiling	sales	haphazardly	worker	opener	ad	band	playing	day	sale	
+	Mod: day	Count: 15
+		Heads: wasted	skip	night	passed	offered	climbed	turking	waited	visit	looking	shopping	pull	watched	buys	blew	
+	Mod: loud	Count: 15
+		Heads: noises	noise	bar	barking	heard	crash	screams	way	bang	storm	read	upstairs	squawk	
+	Mod: special	Count: 15
+		Heads: figurine	bunny	medicine	mold	diet	dish	table	worker	line	deal	doctor	pickles	move	something	
+	Mod: second	Count: 15
+		Heads: one	job	child	base	kid	try	time	half	fly	test	round	teacher	batch	
+	Mod: bus	Count: 15
+		Heads: roar	ride	photos	floor	stop	fare	station	home	strike	ticket	driver	
+	Mod: bank	Count: 15
+		Heads: associate	guard	lot	statements	manager	robbery	doors	heist	teller	robber	account	
+	Mod: actually	Count: 15
+		Heads: fun	planned	shaped	sold	tasted	stop	kissed	kept	fell	finished	liked	enjoyed	person	hurt	won	
+	Mod: extra	Count: 15
+		Heads: credit	cute	hours	dollar	pounds	money	sources	help	portion	food	
+	Mod: all	Count: 15
+		Heads: hung	brought	waited	night	creatures	became	dressed	town	looked	drive	checked	nails	set	enjoyed	seemed	
+	Mod: many	Count: 15
+		Heads: reports	flies	knots	cherries	people	kinds	flavored	samples	concerts	followers	hugs	things	pictures	times	
+	Mod: pretty	Count: 15
+		Heads: girl	pony	crowded	upset	dress	lady	one	picture	stood	doctor	scared	
+	Mod: secret	Count: 15
+		Heads: exchange	hiding	admirers	compartment	places	handshake	ingredients	santa	rendezvous	stash	phobia	sauce	valentine	
+	Mod: finally	Count: 15
+		Heads: decided	feels	aired	realized	managed	agreed	stopped	baked	caught	settled	asked	arrived	logged	told	felt	
+	Mod: cream	Count: 15
+		Heads: stand	cone	party	truck	cones	sundae	flavor	parlor	store	shop	man	
+	Mod: badly	Count: 15
+		Heads: twisted	wanted	cracked	torn	cal	felt	lost	burned	prom	scratched	whimpering	hurt	stabbed	
+	Mod: cell	Count: 15
+		Heads: case	store	phones	while	service	phone	reviews	signal	screen	contract	carrier	
+	Mod: music	Count: 15
+		Heads: shows	concert	teacher	school	way	performance	camp	contest	lover	video	volume	instructor	executives	
+	Mod: other	Count: 15
+		Heads: clothes	people	day	parts	while	girls	kids	dancers	aunt	half	dogs	players	
+	Mod: most	Count: 15
+		Heads: drugs	ride	fun	cookies	times	liked	people	night	bother	time	musicians	thing	house	out	
+	Mod: Yesterday	Count: 15
+		Heads: invited	bet	part	beat	asked	noticed	waiting	feeling	driving	trying	started	plugged	needed	racing	
+	Mod: then	Count: 15
+		Heads: found	invented	look	put	became	outside	eaten	felt	blew	sat	dared	baked	powdered	asked	
+	Mod: computer	Count: 15
+		Heads: screen	cord	use	case	programming	programmer	manufacturer	science	games	languages	chair	game	
+	Mod: alone	Count: 15
+		Heads: leave	parents	left	feel	corner	time	practicing	lived	sat	relaxing	walk	living	
+	Mod: several	Count: 15
+		Heads: others	shelters	deals	entries	times	deer	weeks	packets	games	decorations	items	oranges	minutes	
+	Mod: car	Count: 15
+		Heads: ownership	place	accident	payments	keys	derby	amplifiers	service	show	movie	key	wash	
+	Mod: Later	Count: 15
+		Heads: said	awoke	found	slipped	saw	woke	picked	thought	began	day	learned	lunchtime	looked	
+	Mod: quickly	Count: 15
+		Heads: carried	kissed	found	changed	became	swam	ran	bought	drove	ordered	fixed	realized	rode	put	ate	
+	Mod: private	Count: 15
+		Heads: wedding	secrets	oasis	investigator	lessons	training	concert	cabin	party	thoughts	lesson	tutor	
+	Mod: great	Count: 15
+		Heads: way	demeanor	beyond	block	time	seats	need	place	photographer	job	friends	turking	pictures	experience	
+	Mod: accidentally	Count: 15
+		Heads: dropped	spilled	pooped	swiped	broke	burned	put	sliced	dozed	stepped	hit	shaved	
+	Mod: bird	Count: 15
+		Heads: house	feeders	watcher	outside	home	squawking	journal	plushies	food	book	feeder	game	right	
+	Mod: metal	Count: 15
+		Heads: poles	sculpture	club	music	shovel	wheel	cone	fingertips	concert	tip	dome	block	basin	detector	
+	Mod: lottery	Count: 15
+		Heads: office	winner	ticket	drawing	pool	pot	luck	jackpot	tickets	scratch-offs	plan	winnings	
+	Mod: big	Count: 15
+		Heads: party	spots	show	grin	kid	doberman	mark	garden	player	smile	trouble	bowl	game	sister	binder	
+	Mod: anymore	Count: 15
+		Heads: eat	play	drive	hurt	use	smoke	driving	treated	feel	work	sell	sneeze	mean	speak	
+	Mod: morning	Count: 15
+		Heads: overslept	played	time	leaps	awoke	feeling	work	woke	noticed	arriving	heard	moved	surprised	left	saw	
+	Mod: often	Count: 15
+		Heads: team	look	misbehaved	brushes	companion	tried	forgets	hate	meatballs	raised	picked	congratulated	meets	win	visiting	
+	Mod: chocolate	Count: 11
+		Heads: shake	cupcakes	bunny	lab	beans	bar	pudding	donut	cake	cream	
+	Mod: right	Count: 11
+		Heads: lane	seem	thing	skates	play	ran	times	words	place	path	
+	Mod: grade	Count: 11
+		Heads: teacher	class	dance	increase	tina	schoolers	school	level	
+	Mod: together	Count: 11
+		Heads: mixing	weeks	spending	worked	connected	play	loved	entered	arrived	thanksgiving	everything	
+	Mod: alarm	Count: 7
+		Heads: sign	remote	blaring	clock	bell	company	
+	Mod: Johnny	Count: 5
+		Heads: women	boss	became	mom	
+	Mod: machine	Count: 5
+		Heads: manufacturer	algorithm	dryer	algorithms	gunner	
+	Mod: bruised	Count: 5
+		Heads: leg	face	arm	nose	
+	Mod: urban	Count: 5
+		Heads: life	magazine	vibe	explorer	city	
+	Mod: ad	Count: 5
+		Heads: lib	while	blockers	blocker	
+	Mod: Angry	Count: 5
+		Heads: game	punished	joined	birds	implemented	
+	Mod: furious	Count: 5
+		Heads: glaring	dad	manner	mood	comeback	
+	Mod: brass	Count: 5
+		Heads: mouse	players	knuckles	knob	
+	Mod: finance	Count: 5
+		Heads: class	manager	degree	projects	
+	Mod: bodybuilding	Count: 5
+		Heads: competition	show	contest	committee	
+	Mod: sport	Count: 5
+		Heads: bar	enthusiast	team	coat	store	
+	Mod: cheating	Count: 5
+		Heads: boyfriend	student	husband	wife	
+	Mod: NCAA	Count: 5
+		Heads: tournament	competition	men	bracket	brackets	
+	Mod: assigned	Count: 5
+		Heads: campsite	seats	textbooks	chair	trial	
+	Mod: Jack	Count: 5
+		Heads: jumps	kinds	everything	peanuts	prize	
+	Mod: ice-cream	Count: 5
+		Heads: cone	shop	truck	
+	Mod: apparently	Count: 5
+		Heads: told	asked	one	caught	wrote	
+	Mod: folded	Count: 5
+		Heads: paper	map	note	bill	
+	Mod: Russian	Count: 5
+		Heads: couple	neighbors	woman	class	spy	
+	Mod: sparkling	Count: 5
+		Heads: afterwards	juice	cider	tree	everyday	
+	Mod: diaper	Count: 5
+		Heads: boxes	explosion	rash	change	
+	Mod: after-school	Count: 5
+		Heads: club	event	activities	detention	
+	Mod: audience	Count: 5
+		Heads: apprehensively	member	members	loudly	
+	Mod: pond	Count: 5
+		Heads: home	area	lindsay	tournament	today	
+	Mod: recipe	Count: 5
+		Heads: step	book	instructions	
+	Mod: cocky	Count: 5
+		Heads: feeling	attitude	rolls	guy	
+	Mod: put	Count: 5
+		Heads: options	toppings	shoes	kitty	makeup	
+	Mod: boss	Count: 5
+		Heads: order	mary	timothy	sheila	hours	
+	Mod: patio	Count: 5
+		Heads: deck	tea	door	enclosure	room	
+	Mod: vibrant	Count: 5
+		Heads: fish	self	colors	purple	cultures	
+	Mod: psychology	Count: 5
+		Heads: class	quiz	survey	courses	
+	Mod: supermarket	Count: 5
+		Heads: clerk	boy	starbucks	security	employee	
+	Mod: daring	Count: 5
+		Heads: move	plan	stunt	bikini	anything	
+	Mod: renowned	Count: 5
+		Heads: pianist	school	painter	repairman	teacher	
+	Mod: Man	Count: 5
+		Heads: bowl	cereal	competition	slinger	quotes	
+	Mod: frantic	Count: 5
+		Heads: mother	looking	ad	calls	owner	
+	Mod: Also	Count: 5
+		Heads: challenged	likes	fell	lives	erupted	
+	Mod: healthily	Count: 5
+		Heads: incorporate	growing	ate	sprouted	
+	Mod: existing	Count: 5
+		Heads: pairs	one	products	brush	
+	Mod: marvelous	Count: 5
+		Heads: performance	beaches	inventions	idea	time	
+	Mod: uncle	Count: 5
+		Heads: freddy	house	earthell	directions	frank	
+	Mod: disgusting	Count: 5
+		Heads: mold	sauce	contest	look	part	
+	Mod: motivational	Count: 5
+		Heads: speech	music	speaker	
+	Mod: European	Count: 5
+		Heads: capital	ports	course	couple	woman	
+	Mod: inappropriate	Count: 5
+		Heads: doodle	files	something	contact	comments	
+	Mod: deserted	Count: 5
+		Heads: road	church	roads	slope	trail	
+	Mod: usb	Count: 5
+		Heads: portion	charger	mouse	cable	
+	Mod: luxury	Count: 5
+		Heads: hotel	vacation	items	truck	
+	Mod: buddy	Count: 5
+		Heads: cam	tim	bobby	wilbur	
+	Mod: classmate	Count: 5
+		Heads: nia	eva	aya	evan	callie	
+	Mod: mango	Count: 5
+		Heads: tree	heaven	tea	sorbet	
+	Mod: pilot	Count: 5
+		Heads: lessons	training	rudy	school	
+	Mod: spot	Count: 5
+		Heads: right	bacon	darting	thunderstorms	light	
+	Mod: visit	Count: 5
+		Heads: home	relatives	feeling	day	
+	Mod: checking	Count: 5
+		Heads: everything	reviews	pumpkins	account	
+	Mod: search	Count: 5
+		Heads: mission	online	tools	party	team	
+	Mod: conference	Count: 5
+		Heads: room	call	table	meeting	
+	Mod: temporarily	Count: 4
+		Heads: lost	foster	moved	close	
+	Mod: calm	Count: 4
+		Heads: night	tunnel	waters	day	
+	Mod: insect	Count: 4
+		Heads: documentary	research	repellent	room	
+	Mod: counseling	Count: 4
+		Heads: sessions	session	
+	Mod: terrorist	Count: 4
+		Heads: attack	camp	attacks	
+	Mod: B	Count: 4
+		Heads: book	side	grade	minus	
+	Mod: adrenaline	Count: 4
+		Heads: rush	junkie	speeding	
+	Mod: figure	Count: 4
+		Heads: drawing	skater	move	
+	Mod: personalized	Count: 4
+		Heads: message	mousepad	rejections	stockings	
+	Mod: fuzzy	Count: 4
+		Heads: object	socks	blanket	sweater	
+	Mod: prepared	Count: 4
+		Heads: jokes	audition	right	mix	
+	Mod: wrapping	Count: 4
+		Heads: paper	supplies	gifts	
+	Mod: E	Count: 4
+		Heads: capsules	church	key	levels	
+	Mod: Secretly	Count: 4
+		Heads: knew	resented	began	thought	
+	Mod: banjo	Count: 4
+		Heads: string	player	players	
+	Mod: 17th	Count: 4
+		Heads: party	birthday	hole	
+	Mod: sideways	Count: 4
+		Heads: leapt	skidded	laying	swimming	
+	Mod: meal	Count: 4
+		Heads: plan	idea	time	
+	Mod: bomb	Count: 4
+		Heads: threat	squad	shelter	
+	Mod: throw	Count: 4
+		Heads: shots	line	pillows	rugs	
+	Mod: Joe	Count: 4
+		Heads: dolls	company	customer	trophy	
+	Mod: honey	Count: 4
+		Heads: packet	sandwich	wings	bun	
+	Mod: NWA	Count: 4
+		Heads: tape	video	
+	Mod: assisted	Count: 4
+		Heads: residence	center	facility	
+	Mod: spider	Count: 4
+		Heads: webs	legs	web	garden	
+	Mod: known	Count: 4
+		Heads: firm	authors	boss	grouch	
+	Mod: Algebra	Count: 4
+		Heads: teacher	test	exam	class	
+	Mod: pickle	Count: 4
+		Heads: juice	jar	sandwich	jars	
+	Mod: dried	Count: 4
+		Heads: fish	fruit	beans	bed	
+	Mod: poached	Count: 4
+		Heads: filet	eggs	egg	
+	Mod: soaked	Count: 4
+		Heads: carpet	ended	coworkers	area	
+	Mod: noise	Count: 4
+		Heads: outside	complaints	complaint	
+	Mod: daylight	Count: 4
+		Heads: hours	savings	
+	Mod: Kids	Count: 4
+		Heads: playset	family	cards	
+	Mod: unsuccessfully	Count: 4
+		Heads: chasing	begged	figure	trying	
+	Mod: obedience	Count: 4
+		Heads: class	classes	school	
+	Mod: suitable	Count: 4
+		Heads: cape	costume	pets	replacement	
+	Mod: wallpaper	Count: 4
+		Heads: warehouse	factory	books	
+	Mod: advertising	Count: 4
+		Heads: man	agency	firm	
+	Mod: mexican	Count: 4
+		Heads: place	restaurant	food	
+	Mod: moist	Count: 4
+		Heads: sand	amphibian	cake	
+	Mod: tragic	Count: 3
+		Heads: ceremony	reason	divorce	
+	Mod: meaningful	Count: 3
+		Heads: end	gift	something	
+	Mod: vocal	Count: 3
+		Heads: lessons	coach	
+	Mod: cocktail	Count: 3
+		Heads: hosted	party	
+	Mod: parts	Count: 3
+		Heads: store	list	
+	Mod: handicapped	Count: 3
+		Heads: space	spot	
+	Mod: impending	Count: 3
+		Heads: tsunami	storm	explosion	
+	Mod: mp3	Count: 3
+		Heads: player	format	
+	Mod: Autumn	Count: 3
+		Heads: breeze	tradition	came	
+	Mod: South	Count: 3
+		Heads: legend	end	
+	Mod: stunning	Count: 3
+		Heads: present	dress	creature	
+	Mod: nightly	Count: 3
+		Heads: homework	ritual	
+	Mod: networking	Count: 3
+		Heads: website	event	site	
+	Mod: cocoa	Count: 3
+		Heads: plants	powder	
+	Mod: luck	Count: 3
+		Heads: charm	dinner	
+	Mod: approaching	Count: 3
+		Heads: exam	ship	tornado	
+	Mod: Yankees	Count: 3
+		Heads: game	fan	
+	Mod: kidney	Count: 3
+		Heads: failure	donor	
+	Mod: maternity	Count: 3
+		Heads: leave	class	
+	Mod: volunteer	Count: 3
+		Heads: guard	work	
+	Mod: carnival	Count: 3
+		Heads: game	food	
+	Mod: sliding	Count: 2
+		Heads: door	
+	Mod: bulletin	Count: 2
+		Heads: board	
+	Mod: fighter	Count: 2
+		Heads: tournament	jets	
+	Mod: pony	Count: 1
+		Heads: ride	
+
+
